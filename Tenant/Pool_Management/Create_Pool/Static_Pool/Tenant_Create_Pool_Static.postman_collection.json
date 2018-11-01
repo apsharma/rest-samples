@@ -1,0 +1,1055 @@
+{
+	"info": {
+		"_postman_id": "3920f87d-9aa5-4184-84c9-3a40441ca012",
+		"name": "Tenant_Create_Pool_Static",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+						"exec": [
+							"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+							"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"system",
+						"authenticate",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Data_Centers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cceda3b1-8af7-413a-9641-c8326a7da26d",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"dataCenterId\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/dcs",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"manager",
+						"dcs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tenant_Desktop_Mgrs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b5e72b1-bdf9-451c-93ec-ef7ba2915474",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tenantDesktopManager\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/tenant/desktopmanagers",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"manager",
+						"tenant",
+						"desktopmanagers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "taDsktpMgr",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{taAuthHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/tenant/desktopmanagers",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"manager",
+								"tenant",
+								"desktopmanagers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "javascript",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+							"name": "Cache-Control",
+							"description": ""
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": ""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": ""
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": ""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": ""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Mar 2016 15:02:11 GMT",
+							"name": "Date",
+							"description": ""
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+							"name": "Expires",
+							"description": ""
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": ""
+						},
+						{
+							"key": "Server",
+							"value": "nginx",
+							"name": "Server",
+							"description": ""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000 ; includeSubDomains, max-age=31536000; includeSubdomains;",
+							"name": "Strict-Transport-Security",
+							"description": ""
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": ""
+						},
+						{
+							"key": "X-Backend",
+							"value": "127.0.0.1:4443",
+							"name": "X-Backend",
+							"description": ""
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff, nosniff",
+							"name": "X-Content-Type-Options",
+							"description": ""
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY, SAMEORIGIN",
+							"name": "X-Frame-Options",
+							"description": ""
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block, 1; mode=block;",
+							"name": "X-XSS-Protection",
+							"description": ""
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Sun Mar 15 2026 11:09:04 GMT-0400 (EDT)",
+							"hostOnly": true,
+							"httpOnly": true,
+							"domain": "10.31.29.50",
+							"path": "/",
+							"secure": true,
+							"session": false,
+							"value": "1",
+							"key": "COOKIE_PCOIP_TIP_SHOWN"
+						},
+						{
+							"expires": "Invalid Date",
+							"hostOnly": true,
+							"httpOnly": true,
+							"domain": "10.31.29.50",
+							"path": "/",
+							"secure": true,
+							"session": true,
+							"value": "AE347BEA2C1D5746FBFB263AF862F3FA",
+							"key": "JSESSIONID"
+						},
+						{
+							"expires": "Tue Apr 18 2017 16:31:18 GMT-0400 (EDT)",
+							"hostOnly": true,
+							"httpOnly": false,
+							"domain": "10.31.29.50",
+							"path": "/",
+							"secure": false,
+							"session": false,
+							"value": "20709d3f3b20f747.1458592278.2.1458760248.1458760236..",
+							"key": "_pk_id.1.5cc4"
+						}
+					],
+					"body": "[{\"id\":\"B8466A82FD\",\"provisioningEnabled\":true,\"lastUpdated\":1458916751689,\"lastMonitorTime\":null,\"vmgrId\":\"88176276-1d0f-40d8-a280-e4b5f9c19381\",\"dateCreated\":1458916751689,\"organizationId\":1001,\"dataCenterId\":\"f8808628-3a09-4c00-a23a-7b655c7f2f5c\",\"monitoringHost\":null,\"state\":\"Online\",\"name\":\"1001B8466A82FD\",\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD\",\"name\":\"DtTenantDesktopManager\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"map\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD/agent/accessible/ips\",\"name\":\"AgentAccessibleIps\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD/networks\",\"name\":\"Networks\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"association\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD/capacity\",\"name\":\"Capacity\",\"method\":\"GET\",\"deprecated\":false}]}]"
+				}
+			]
+		},
+		{
+			"name": "Get_Gold_Patterns",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "98a43319-044f-4007-aa19-776a89a4e764",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"firstGoldPattern\", JSON.stringify(jsonData[1]));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/patterns?type=G",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"patterns"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "G"
+						},
+						{
+							"key": null,
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Organization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "98a43319-044f-4007-aa19-776a89a4e764",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tenantOrg\", JSON.stringify(jsonData[0]));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/security/manager/organizations",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"security",
+						"manager",
+						"organizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Desktop_Model_Definitions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b9b497d-40d8-490f-b9d1-6207703dacf1",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"desktopModels\", JSON.stringify(jsonData));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/desktopmodeldefinitions?desktopmanagerid={{tenantDesktopManager}}",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"manager",
+						"desktopmodeldefinitions"
+					],
+					"query": [
+						{
+							"key": "desktopmanagerid",
+							"value": "{{tenantDesktopManager}}"
+						},
+						{
+							"key": null,
+							"value": null
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "allModels",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/desktopmodeldefinitions?desktopmanagerid={{tenantDesktopManager}}&",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"manager",
+								"desktopmodeldefinitions"
+							],
+							"query": [
+								{
+									"key": "desktopmanagerid",
+									"value": "{{tenantDesktopManager}}"
+								},
+								{
+									"key": null,
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "javascript",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+							"name": "Cache-Control",
+							"description": ""
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": ""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": ""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Mar 2016 15:36:28 GMT",
+							"name": "Date",
+							"description": ""
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+							"name": "Expires",
+							"description": ""
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": ""
+						},
+						{
+							"key": "Server",
+							"value": "VMware Horizon DaaS",
+							"name": "Server",
+							"description": ""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000 ; includeSubDomains",
+							"name": "Strict-Transport-Security",
+							"description": ""
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": ""
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": ""
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY",
+							"name": "X-Frame-Options",
+							"description": ""
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "[{\"id\":\"1cb3f348-f987-4834-a33c-742ef30d356b\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106928,\"lastUpdated\":1458915106928,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Normal\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"209ddcb0-420f-455d-b781-8c839d6bdddd\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106930,\"lastUpdated\":1458915106930,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Utility\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}]"
+				},
+				{
+					"name": "getModel",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/desktopmodeldefinitions?desktopmanagerid={{tenantDesktopManager}}&",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"manager",
+								"desktopmodeldefinitions"
+							],
+							"query": [
+								{
+									"key": "desktopmanagerid",
+									"value": "{{tenantDesktopManager}}"
+								},
+								{
+									"key": null,
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "javascript",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+							"name": "Cache-Control",
+							"description": ""
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": ""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": ""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Mar 2016 15:38:02 GMT",
+							"name": "Date",
+							"description": ""
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+							"name": "Expires",
+							"description": ""
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": ""
+						},
+						{
+							"key": "Server",
+							"value": "VMware Horizon DaaS",
+							"name": "Server",
+							"description": ""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000 ; includeSubDomains",
+							"name": "Strict-Transport-Security",
+							"description": ""
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": ""
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": ""
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY",
+							"name": "X-Frame-Options",
+							"description": ""
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}"
+				}
+			]
+		},
+		{
+			"name": "Get_Enabled_Desktop_Model_Definitions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b9b497d-40d8-490f-b9d1-6207703dacf1",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"Small\") {",
+							"        postman.setEnvironmentVariable(\"smallDesktopModel\", JSON.stringify(jsonData[i]));",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/enableddesktopmodeldefinitions",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"manager",
+						"enableddesktopmodeldefinitions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getModel",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{taAuthHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/enableddesktopmodeldefinitions",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"manager",
+								"enableddesktopmodeldefinitions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "javascript",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+							"name": "Cache-Control",
+							"description": ""
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": ""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": ""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Mar 2016 15:38:02 GMT",
+							"name": "Date",
+							"description": ""
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+							"name": "Expires",
+							"description": ""
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": ""
+						},
+						{
+							"key": "Server",
+							"value": "VMware Horizon DaaS",
+							"name": "Server",
+							"description": ""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000 ; includeSubDomains",
+							"name": "Strict-Transport-Security",
+							"description": ""
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": ""
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": ""
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY",
+							"name": "X-Frame-Options",
+							"description": ""
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}"
+				},
+				{
+					"name": "allModels",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{taAuthHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/enableddesktopmodeldefinitions",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"manager",
+								"enableddesktopmodeldefinitions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "javascript",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+							"name": "Cache-Control",
+							"description": ""
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": ""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": ""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Mar 2016 15:36:28 GMT",
+							"name": "Date",
+							"description": ""
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+							"name": "Expires",
+							"description": ""
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": ""
+						},
+						{
+							"key": "Server",
+							"value": "VMware Horizon DaaS",
+							"name": "Server",
+							"description": ""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000 ; includeSubDomains",
+							"name": "Strict-Transport-Security",
+							"description": ""
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": ""
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": ""
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY",
+							"name": "X-Frame-Options",
+							"description": ""
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "[{\"id\":\"1cb3f348-f987-4834-a33c-742ef30d356b\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106928,\"lastUpdated\":1458915106928,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Normal\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"209ddcb0-420f-455d-b781-8c839d6bdddd\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106930,\"lastUpdated\":1458915106930,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Utility\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}]"
+				}
+			]
+		},
+		{
+			"name": "Create_Desktop_Pool",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{csrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n  \"customerId\": \"\",\n    \"defaultPoolProtocol\": \"BLAST\",\n    \"domainName\": \"AUTO-TENANTB\",\n    \"highlyAvailable\": false,\n    \"lastUpdated\": \"\",\n    \"name\": \"sample-\",\n    \"patternType\": \"S\",\n    \"poolModeMessage\": \"\",\n    \"poolOnline\": true,\n    \"poolSessionType\": \"both\",\n    \"poolSizeType\": \"Fixed\",\n    \"requestedSize\": 0,\n    \"sessionBased\": false,\n    \"supportedPoolProtocols\": [\"PCOIP\", \"BLAST\"],\n    \"usedByDataCenterIds\": [\"{{dataCenterId}}\"],\n    \"vmRootName\": \"sample-\",\n    \"actualSize\": 0,\n    \"minimumAvailable\": null,\n    \"DtPoolPolicy\": {\n      \"assignedGroupNames\": [],\n      \"licenseKey\": null,\n      \"clipBoardRedirect\": false,\n      \"drivesRedirect\": false,\n      \"printerRedirect\": false,\n      \"smartCardRedirect\": false,\n      \"comPortRedirect\": false,\n      \"registeredTo\": null,\n      \"runOnceScript\": null,\n      \"video3DEnabled\": false,\n      \"assignedNetworks\": [],\n      \"organizationalUnit\": null,\n      \"allowFullDesktop\": true,\n      \"allocatorSessionTimeOut\": 3600000,\n      \"maxPoweredOnVMs\": null,\n      \"minPoweredOnVMs\": null,\n      \"nonPersistent\": false,\n      \"allowedToJoinDomain\": true,\n      \"timezone\": null\n    },\n    \"vmOsLicenseType\": \"Windows_Client\",\n    \"DtDesktopModel\": {{smallDesktopModel}},\n    \"DtGoldPattern\": {{firstGoldPattern}},\n    \"DtOrganization\": {{tenantOrg}}\n  }"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/create/desktop/pool",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"create",
+						"desktop",
+						"pool"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

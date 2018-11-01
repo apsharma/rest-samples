@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "f251f418-1fb6-43ea-a4a8-3f679cbca335",
+		"name": "Tenant_General",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Timeout_Settings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/setting/manager/getclienttimeoutconfig",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"setting",
+						"manager",
+						"getclienttimeoutconfig"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Certificate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-x509-ca-cert"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Content-Disposition",
+						"value": "attachment; filename=\"cacert.pem\""
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, sdch"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/system/certificate",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"system",
+						"certificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Available_Agents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pool/1004/availableagentdetails?agentName=DaaS-Agent&agentVersion=19.1.0",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"pool",
+						"1004",
+						"availableagentdetails"
+					],
+					"query": [
+						{
+							"key": "agentName",
+							"value": "DaaS-Agent"
+						},
+						{
+							"key": "agentVersion",
+							"value": "19.1.0"
+						}
+					]
+				},
+				"description": "I am not whether this API is still relevant."
+			},
+			"response": []
+		},
+		{
+			"name": "Tenant_protocol_Quota",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic 5a14a423-a5ea-4c0a-8bdd-32ff4702a290"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{IP}}/dt-rest/v100/quota/manager/tenant/protocol/quota",
+					"protocol": "https",
+					"host": [
+						"{{IP}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"quota",
+						"manager",
+						"tenant",
+						"protocol",
+						"quota"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Reservation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"endDate\": 1541099635000,\n  \"beginDate\": 1438905600000\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/reservation/manager/reservations",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"reservation",
+						"manager",
+						"reservations"
+					]
+				},
+				"description": "NOT REALLY  USED"
+			},
+			"response": []
+		}
+	]
+}
