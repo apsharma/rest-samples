@@ -1,0 +1,1 @@
+This file will detail the various API available for managing Service Provider capabilities.

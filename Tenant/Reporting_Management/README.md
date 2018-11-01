@@ -1,0 +1,1 @@
+This file will detail the various API available for generating daily reports available to Tenant Administrators.
