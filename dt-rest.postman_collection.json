@@ -1,0 +1,2910 @@
+{
+	"info": {
+		"_postman_id": "fbf6fbcc-67ba-83f5-46df-f176ffad48b3",
+		"name": "dt-rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tenant",
+			"item": [
+				{
+					"name": "General",
+					"item": [
+						{
+							"name": "Get_Timeout_Settings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/setting/manager/getclienttimeoutconfig",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"setting",
+										"manager",
+										"getclienttimeoutconfig"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_Certificate",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-x509-ca-cert"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json, text/plain, */*"
+									},
+									{
+										"key": "Content-Disposition",
+										"value": "attachment; filename=\"cacert.pem\""
+									},
+									{
+										"key": "Accept-Encoding",
+										"value": "gzip, deflate, sdch"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/system/certificate",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"system",
+										"certificate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_Available_Agents",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pool/1004/availableagentdetails?agentName=DaaS-Agent&agentVersion=19.1.0",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"pool",
+										"manager",
+										"pool",
+										"1004",
+										"availableagentdetails"
+									],
+									"query": [
+										{
+											"key": "agentName",
+											"value": "DaaS-Agent"
+										},
+										{
+											"key": "agentVersion",
+											"value": "19.1.0"
+										}
+									]
+								},
+								"description": "I am not whether this API is still relevant."
+							},
+							"response": []
+						},
+						{
+							"name": "Tenant_protocol_Quota",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic 5a14a423-a5ea-4c0a-8bdd-32ff4702a290"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{IP}}/dt-rest/v100/quota/manager/tenant/protocol/quota",
+									"protocol": "https",
+									"host": [
+										"{{IP}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"quota",
+										"manager",
+										"tenant",
+										"protocol",
+										"quota"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_Reservation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{taCsrfHeader}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"endDate\": 1541099635000,\n  \"beginDate\": 1438905600000\n}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/reservation/manager/reservations",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"reservation",
+										"manager",
+										"reservations"
+									]
+								},
+								"description": "NOT REALLY  USED"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Pool Management",
+					"item": [
+						{
+							"name": "Create_Pool",
+							"item": [
+								{
+									"name": "Pool Type: Static",
+									"item": [
+										{
+											"name": "Login",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+														"exec": [
+															"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+															"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"system",
+														"authenticate",
+														"credentials"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get_Data_Centers",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "cceda3b1-8af7-413a-9641-c8326a7da26d",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"dataCenterId\", jsonData[0].id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{taAuthHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/dcs",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"infrastructure",
+														"manager",
+														"dcs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Tenant_Desktop_Mgrs",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "7b5e72b1-bdf9-451c-93ec-ef7ba2915474",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"tenantDesktopManager\", jsonData[0].id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{taAuthHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/tenant/desktopmanagers",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"infrastructure",
+														"manager",
+														"tenant",
+														"desktopmanagers"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "taDsktpMgr",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "{{taAuthHeader}}"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/tenant/desktopmanagers",
+															"protocol": "https",
+															"host": [
+																"{{taAddress}}"
+															],
+															"path": [
+																"dt-rest",
+																"v100",
+																"infrastructure",
+																"manager",
+																"tenant",
+																"desktopmanagers"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "javascript",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+															"name": "Cache-Control",
+															"description": ""
+														},
+														{
+															"key": "Connection",
+															"value": "keep-alive",
+															"name": "Connection",
+															"description": ""
+														},
+														{
+															"key": "Content-Encoding",
+															"value": "gzip",
+															"name": "Content-Encoding",
+															"description": ""
+														},
+														{
+															"key": "Content-Language",
+															"value": "en-US",
+															"name": "Content-Language",
+															"description": ""
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json; charset=utf-8",
+															"name": "Content-Type",
+															"description": ""
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 25 Mar 2016 15:02:11 GMT",
+															"name": "Date",
+															"description": ""
+														},
+														{
+															"key": "Expires",
+															"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+															"name": "Expires",
+															"description": ""
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": ""
+														},
+														{
+															"key": "Server",
+															"value": "nginx",
+															"name": "Server",
+															"description": ""
+														},
+														{
+															"key": "Strict-Transport-Security",
+															"value": "max-age=31536000 ; includeSubDomains, max-age=31536000; includeSubdomains;",
+															"name": "Strict-Transport-Security",
+															"description": ""
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": ""
+														},
+														{
+															"key": "X-Backend",
+															"value": "127.0.0.1:4443",
+															"name": "X-Backend",
+															"description": ""
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff, nosniff",
+															"name": "X-Content-Type-Options",
+															"description": ""
+														},
+														{
+															"key": "X-Frame-Options",
+															"value": "DENY, SAMEORIGIN",
+															"name": "X-Frame-Options",
+															"description": ""
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block, 1; mode=block;",
+															"name": "X-XSS-Protection",
+															"description": ""
+														}
+													],
+													"cookie": [
+														{
+															"expires": "Sun Mar 15 2026 11:09:04 GMT-0400 (EDT)",
+															"hostOnly": true,
+															"httpOnly": true,
+															"domain": "10.31.29.50",
+															"path": "/",
+															"secure": true,
+															"session": false,
+															"value": "1",
+															"key": "COOKIE_PCOIP_TIP_SHOWN"
+														},
+														{
+															"expires": "Invalid Date",
+															"hostOnly": true,
+															"httpOnly": true,
+															"domain": "10.31.29.50",
+															"path": "/",
+															"secure": true,
+															"session": true,
+															"value": "AE347BEA2C1D5746FBFB263AF862F3FA",
+															"key": "JSESSIONID"
+														},
+														{
+															"expires": "Tue Apr 18 2017 16:31:18 GMT-0400 (EDT)",
+															"hostOnly": true,
+															"httpOnly": false,
+															"domain": "10.31.29.50",
+															"path": "/",
+															"secure": false,
+															"session": false,
+															"value": "20709d3f3b20f747.1458592278.2.1458760248.1458760236..",
+															"key": "_pk_id.1.5cc4"
+														}
+													],
+													"body": "[{\"id\":\"B8466A82FD\",\"provisioningEnabled\":true,\"lastUpdated\":1458916751689,\"lastMonitorTime\":null,\"vmgrId\":\"88176276-1d0f-40d8-a280-e4b5f9c19381\",\"dateCreated\":1458916751689,\"organizationId\":1001,\"dataCenterId\":\"f8808628-3a09-4c00-a23a-7b655c7f2f5c\",\"monitoringHost\":null,\"state\":\"Online\",\"name\":\"1001B8466A82FD\",\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD\",\"name\":\"DtTenantDesktopManager\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"map\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD/agent/accessible/ips\",\"name\":\"AgentAccessibleIps\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD/networks\",\"name\":\"Networks\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"association\",\"href\":\"/infrastructure/TenantDesktopManager/B8466A82FD/capacity\",\"name\":\"Capacity\",\"method\":\"GET\",\"deprecated\":false}]}]"
+												}
+											]
+										},
+										{
+											"name": "Get_Gold_Patterns",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "98a43319-044f-4007-aa19-776a89a4e764",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"firstGoldPattern\", JSON.stringify(jsonData[1]));",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{taAuthHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/patterns?type=G",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"pool",
+														"manager",
+														"patterns"
+													],
+													"query": [
+														{
+															"key": "type",
+															"value": "G"
+														},
+														{
+															"key": null,
+															"value": null
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get_Organization",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "98a43319-044f-4007-aa19-776a89a4e764",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"tenantOrg\", JSON.stringify(jsonData[0]));",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{taAuthHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/security/manager/organizations",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"security",
+														"manager",
+														"organizations"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get_Desktop_Model_Definitions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0b9b497d-40d8-490f-b9d1-6207703dacf1",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"desktopModels\", JSON.stringify(jsonData));"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{authHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/desktopmodeldefinitions?desktopmanagerid={{tenantDesktopManager}}",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"infrastructure",
+														"manager",
+														"desktopmodeldefinitions"
+													],
+													"query": [
+														{
+															"key": "desktopmanagerid",
+															"value": "{{tenantDesktopManager}}"
+														},
+														{
+															"key": null,
+															"value": null
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "getModel",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "{{authHeader}}"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/desktopmodeldefinitions?desktopmanagerid={{tenantDesktopManager}}&",
+															"protocol": "https",
+															"host": [
+																"{{taAddress}}"
+															],
+															"path": [
+																"dt-rest",
+																"v100",
+																"infrastructure",
+																"manager",
+																"desktopmodeldefinitions"
+															],
+															"query": [
+																{
+																	"key": "desktopmanagerid",
+																	"value": "{{tenantDesktopManager}}"
+																},
+																{
+																	"key": null,
+																	"value": null
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "javascript",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+															"name": "Cache-Control",
+															"description": ""
+														},
+														{
+															"key": "Content-Language",
+															"value": "en-US",
+															"name": "Content-Language",
+															"description": ""
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json;charset=UTF-8",
+															"name": "Content-Type",
+															"description": ""
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 25 Mar 2016 15:38:02 GMT",
+															"name": "Date",
+															"description": ""
+														},
+														{
+															"key": "Expires",
+															"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+															"name": "Expires",
+															"description": ""
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": ""
+														},
+														{
+															"key": "Server",
+															"value": "VMware Horizon DaaS",
+															"name": "Server",
+															"description": ""
+														},
+														{
+															"key": "Strict-Transport-Security",
+															"value": "max-age=31536000 ; includeSubDomains",
+															"name": "Strict-Transport-Security",
+															"description": ""
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": ""
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff",
+															"name": "X-Content-Type-Options",
+															"description": ""
+														},
+														{
+															"key": "X-Frame-Options",
+															"value": "DENY",
+															"name": "X-Frame-Options",
+															"description": ""
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block",
+															"name": "X-XSS-Protection",
+															"description": ""
+														}
+													],
+													"cookie": [],
+													"body": "{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}"
+												},
+												{
+													"name": "allModels",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "{{authHeader}}"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/desktopmodeldefinitions?desktopmanagerid={{tenantDesktopManager}}&",
+															"protocol": "https",
+															"host": [
+																"{{taAddress}}"
+															],
+															"path": [
+																"dt-rest",
+																"v100",
+																"infrastructure",
+																"manager",
+																"desktopmodeldefinitions"
+															],
+															"query": [
+																{
+																	"key": "desktopmanagerid",
+																	"value": "{{tenantDesktopManager}}"
+																},
+																{
+																	"key": null,
+																	"value": null
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "javascript",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+															"name": "Cache-Control",
+															"description": ""
+														},
+														{
+															"key": "Content-Language",
+															"value": "en-US",
+															"name": "Content-Language",
+															"description": ""
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json;charset=UTF-8",
+															"name": "Content-Type",
+															"description": ""
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 25 Mar 2016 15:36:28 GMT",
+															"name": "Date",
+															"description": ""
+														},
+														{
+															"key": "Expires",
+															"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+															"name": "Expires",
+															"description": ""
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": ""
+														},
+														{
+															"key": "Server",
+															"value": "VMware Horizon DaaS",
+															"name": "Server",
+															"description": ""
+														},
+														{
+															"key": "Strict-Transport-Security",
+															"value": "max-age=31536000 ; includeSubDomains",
+															"name": "Strict-Transport-Security",
+															"description": ""
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": ""
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff",
+															"name": "X-Content-Type-Options",
+															"description": ""
+														},
+														{
+															"key": "X-Frame-Options",
+															"value": "DENY",
+															"name": "X-Frame-Options",
+															"description": ""
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block",
+															"name": "X-XSS-Protection",
+															"description": ""
+														}
+													],
+													"cookie": [],
+													"body": "[{\"id\":\"1cb3f348-f987-4834-a33c-742ef30d356b\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106928,\"lastUpdated\":1458915106928,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Normal\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"209ddcb0-420f-455d-b781-8c839d6bdddd\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106930,\"lastUpdated\":1458915106930,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Utility\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}]"
+												}
+											]
+										},
+										{
+											"name": "Get_Enabled_Desktop_Model_Definitions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0b9b497d-40d8-490f-b9d1-6207703dacf1",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"",
+															"for (var i=0; i<jsonData.length; i++) {",
+															"    if(jsonData[i].name===\"Small\") {",
+															"        postman.setEnvironmentVariable(\"smallDesktopModel\", JSON.stringify(jsonData[i]));",
+															"    }",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{taAuthHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/enableddesktopmodeldefinitions",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"infrastructure",
+														"manager",
+														"enableddesktopmodeldefinitions"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "getModel",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "{{taAuthHeader}}"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/enableddesktopmodeldefinitions",
+															"protocol": "https",
+															"host": [
+																"{{taAddress}}"
+															],
+															"path": [
+																"dt-rest",
+																"v100",
+																"infrastructure",
+																"manager",
+																"enableddesktopmodeldefinitions"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "javascript",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+															"name": "Cache-Control",
+															"description": ""
+														},
+														{
+															"key": "Content-Language",
+															"value": "en-US",
+															"name": "Content-Language",
+															"description": ""
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json;charset=UTF-8",
+															"name": "Content-Type",
+															"description": ""
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 25 Mar 2016 15:38:02 GMT",
+															"name": "Date",
+															"description": ""
+														},
+														{
+															"key": "Expires",
+															"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+															"name": "Expires",
+															"description": ""
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": ""
+														},
+														{
+															"key": "Server",
+															"value": "VMware Horizon DaaS",
+															"name": "Server",
+															"description": ""
+														},
+														{
+															"key": "Strict-Transport-Security",
+															"value": "max-age=31536000 ; includeSubDomains",
+															"name": "Strict-Transport-Security",
+															"description": ""
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": ""
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff",
+															"name": "X-Content-Type-Options",
+															"description": ""
+														},
+														{
+															"key": "X-Frame-Options",
+															"value": "DENY",
+															"name": "X-Frame-Options",
+															"description": ""
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block",
+															"name": "X-XSS-Protection",
+															"description": ""
+														}
+													],
+													"cookie": [],
+													"body": "{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}"
+												},
+												{
+													"name": "allModels",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "{{taAuthHeader}}"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/manager/enableddesktopmodeldefinitions",
+															"protocol": "https",
+															"host": [
+																"{{taAddress}}"
+															],
+															"path": [
+																"dt-rest",
+																"v100",
+																"infrastructure",
+																"manager",
+																"enableddesktopmodeldefinitions"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "javascript",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "private, no-cache, no-store, max-age=0, must-revalidate, no-store",
+															"name": "Cache-Control",
+															"description": ""
+														},
+														{
+															"key": "Content-Language",
+															"value": "en-US",
+															"name": "Content-Language",
+															"description": ""
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json;charset=UTF-8",
+															"name": "Content-Type",
+															"description": ""
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 25 Mar 2016 15:36:28 GMT",
+															"name": "Date",
+															"description": ""
+														},
+														{
+															"key": "Expires",
+															"value": "Thu, 01 Jan 1970 00:00:00 UTC, 0",
+															"name": "Expires",
+															"description": ""
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": ""
+														},
+														{
+															"key": "Server",
+															"value": "VMware Horizon DaaS",
+															"name": "Server",
+															"description": ""
+														},
+														{
+															"key": "Strict-Transport-Security",
+															"value": "max-age=31536000 ; includeSubDomains",
+															"name": "Strict-Transport-Security",
+															"description": ""
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": ""
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff",
+															"name": "X-Content-Type-Options",
+															"description": ""
+														},
+														{
+															"key": "X-Frame-Options",
+															"value": "DENY",
+															"name": "X-Frame-Options",
+															"description": ""
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block",
+															"name": "X-XSS-Protection",
+															"description": ""
+														}
+													],
+													"cookie": [],
+													"body": "[{\"id\":\"1cb3f348-f987-4834-a33c-742ef30d356b\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106928,\"lastUpdated\":1458915106928,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Normal\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/1cb3f348-f987-4834-a33c-742ef30d356b/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"209ddcb0-420f-455d-b781-8c839d6bdddd\",\"desktopMemoryInMBs\":2048,\"numberOfCpus\":1,\"diskSpaceInGBs\":25,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458915106930,\"lastUpdated\":1458915106930,\"enabled\":false,\"type\":\"selectable\",\"name\":\"Utility\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/209ddcb0-420f-455d-b781-8c839d6bdddd/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]},{\"id\":\"e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"desktopMemoryInMBs\":1024,\"numberOfCpus\":2,\"diskSpaceInGBs\":0,\"desktopQuota\":null,\"sessionBased\":false,\"currentDesktopCount\":null,\"gpuFrameBuffer\":null,\"refId\":null,\"dateCreated\":1458917841081,\"lastUpdated\":1458917841081,\"enabled\":true,\"type\":\"static\",\"name\":\"bat-model-1\",\"DtLicenseEntitlement\":[],\"DtLink\":[{\"rel\":\"self\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82\",\"name\":\"DtDesktopModel\",\"method\":\"GET\",\"deprecated\":false},{\"rel\":\"action\",\"href\":\"/infrastructure/model/e711d7ec-c1b0-4f0f-a016-be76bee0bd82/save\",\"name\":\"Save\",\"method\":\"POST\",\"deprecated\":false}]}]"
+												}
+											]
+										},
+										{
+											"name": "Create_Desktop_Pool",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{authHeader}}"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "x-dt-csrf-header",
+														"value": "{{csrfHeader}}"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\n  \"customerId\": \"\",\n    \"defaultPoolProtocol\": \"BLAST\",\n    \"domainName\": \"AUTO-TENANTB\",\n    \"highlyAvailable\": false,\n    \"lastUpdated\": \"\",\n    \"name\": \"sample-\",\n    \"patternType\": \"S\",\n    \"poolModeMessage\": \"\",\n    \"poolOnline\": true,\n    \"poolSessionType\": \"both\",\n    \"poolSizeType\": \"Fixed\",\n    \"requestedSize\": 0,\n    \"sessionBased\": false,\n    \"supportedPoolProtocols\": [\"PCOIP\", \"BLAST\"],\n    \"usedByDataCenterIds\": [\"{{dataCenterId}}\"],\n    \"vmRootName\": \"sample-\",\n    \"actualSize\": 0,\n    \"minimumAvailable\": null,\n    \"DtPoolPolicy\": {\n      \"assignedGroupNames\": [],\n      \"licenseKey\": null,\n      \"clipBoardRedirect\": false,\n      \"drivesRedirect\": false,\n      \"printerRedirect\": false,\n      \"smartCardRedirect\": false,\n      \"comPortRedirect\": false,\n      \"registeredTo\": null,\n      \"runOnceScript\": null,\n      \"video3DEnabled\": false,\n      \"assignedNetworks\": [],\n      \"organizationalUnit\": null,\n      \"allowFullDesktop\": true,\n      \"allocatorSessionTimeOut\": 3600000,\n      \"maxPoweredOnVMs\": null,\n      \"minPoweredOnVMs\": null,\n      \"nonPersistent\": false,\n      \"allowedToJoinDomain\": true,\n      \"timezone\": null\n    },\n    \"vmOsLicenseType\": \"Windows_Client\",\n    \"DtDesktopModel\": {{smallDesktopModel}},\n    \"DtGoldPattern\": {{firstGoldPattern}},\n    \"DtOrganization\": {{tenantOrg}}\n  }"
+												},
+												"url": {
+													"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/create/desktop/pool",
+													"protocol": "https",
+													"host": [
+														"{{taAddress}}"
+													],
+													"path": [
+														"dt-rest",
+														"v100",
+														"pool",
+														"manager",
+														"create",
+														"desktop",
+														"pool"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Pool_Type: Floating",
+									"item": [],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Pool_Type: RDSH",
+									"item": [],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Update_Pool",
+							"item": [
+								{
+									"name": "Update_Pool",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic e588007c-cebd-4c06-aadd-4aa8cd261090"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "7257d1d8-8a1c-4a9b-8d8b-76ffe1d71d85"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"requestedSize\": \"0\",\n    \"sessionBased\": false,\n    \"name\": \"ci-test-\",\n    \"domainName\": \"AUTO-TENANTA\",\n    \"patternType\": \"S\",\n    \"DtOrganization\": {\n        \"name\": \"Tenant1001\",\n        \"disabled\": false,\n        \"dateCreated\": 1434434901926,\n        \"dateUpdated\": 1434434901926,\n        \"brandedCSSURL\": null,\n        \"licenseFileURL\": null,\n        \"supportURL\": null,\n        \"adminContact\": null,\n        \"technicalContact\": null,\n        \"helpDesk\": null,\n        \"support\": null,\n        \"diskQuota\": null,\n        \"vmQuota\": null,\n        \"crmURL\": null,\n        \"businessUrl\": null,\n        \"superTenant\": false,\n        \"jmxPassword\": \"+hdz5LqE\",\n        \"id\": \"1001\",\n        \"DtLink\": [\n            {\n                \"name\": \"DtOrganization\",\n                \"method\": \"GET\",\n                \"href\": \"/security/organization/1001\",\n                \"deprecated\": false,\n                \"rel\": \"self\"\n            },\n            {\n                \"name\": \"DesktopModelQuotas\",\n                \"method\": \"GET\",\n                \"href\": \"/security/organization/1001/quotas\",\n                \"deprecated\": false,\n                \"rel\": \"association\"\n            }\n        ]\n    },\n    \"dateCreated\": 1434464354779,\n    \"poolOnline\": true,\n    \"vmRootName\": \"ci-test-\",\n    \"actualSize\": \"0\",\n    \"poolSizeType\": \"Fixed\",\n    \"poolModeMessage\": \"\",\n    \"customerId\": \"\",\n    \"DtGoldPattern\": {\n        \"key\": \"\",\n        \"version\": 1003,\n        \"modified\": false,\n        \"enabled\": true,\n        \"username\": \"administrator\",\n        \"inventoryPath\": null,\n        \"hostManagerId\": null,\n        \"md5sum\": null,\n        \"parentId\": null,\n        \"osType\": \"Windows7_64\",\n        \"companyName\": \"vmw\",\n        \"notes\": \"\",\n        \"timeZoneId\": \"EST\",\n        \"vmUuid\": \"421edf2e-43af-21f3-6974-ca399896bc68\",\n        \"name\": \"auto-win7-ent-GOLDPATTERN\",\n        \"deleted\": false,\n        \"dateCreated\": 1434463842960,\n        \"lastUpdated\": 1434463893476,\n        \"id\": \"G.1001.6\",\n        \"DtLink\": [\n            {\n                \"name\": \"DtGoldPattern\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6\",\n                \"deprecated\": false,\n                \"rel\": \"self\"\n            },\n            {\n                \"name\": \"Delete\",\n                \"method\": \"POST\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/delete\",\n                \"deprecated\": false,\n                \"rel\": \"action\"\n            },\n            {\n                \"name\": \"Update\",\n                \"method\": \"PUT\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/update\",\n                \"deprecated\": false,\n                \"rel\": \"action\"\n            },\n            {\n                \"name\": \"Applications\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/applications\",\n                \"deprecated\": false,\n                \"rel\": \"association\"\n            },\n            {\n                \"name\": \"VirtualMachine\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/vm\",\n                \"deprecated\": false,\n                \"rel\": \"association\"\n            },\n            {\n                \"name\": \"ConvertToDesktop\",\n                \"method\": \"POST\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/convert/desktop\",\n                \"deprecated\": false,\n                \"rel\": \"action\"\n            },\n            {\n                \"name\": \"Pools\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/pools\",\n                \"deprecated\": false,\n                \"rel\": \"association\"\n            },\n            {\n                \"name\": \"ValidateForGoldPattern\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/validateForGoldPattern\",\n                \"deprecated\": false,\n                \"rel\": \"action\"\n            },\n            {\n                \"name\": \"Rename\",\n                \"method\": \"PUT\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/rename?name=%7Bname%7D\",\n                \"deprecated\": false,\n                \"rel\": \"action\"\n            },\n            {\n                \"name\": \"DesktopManagerId\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/tenant/desktopmanagerid\",\n                \"deprecated\": false,\n                \"rel\": \"association\"\n            },\n            {\n                \"name\": \"DataCenters\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/pattern/gold/G.1001.6/dcs\",\n                \"deprecated\": false,\n                \"rel\": \"association\"\n            }\n        ]\n    },\n    \"DtDesktopModel\": {\n        \"name\": \"CIenv1Model\",\n        \"type\": \"dynamic\",\n        \"enabled\": true,\n        \"DtLicenseEntitlement\": [\n            \n        ],\n        \"dateCreated\": 1434434532935,\n        \"refId\": null,\n        \"sessionBased\": false,\n        \"currentDesktopCount\": null,\n        \"lastUpdated\": 1434437948090,\n        \"desktopMemoryInMBs\": 2048,\n        \"numberOfCpus\": 1,\n        \"diskSpaceInGBs\": 0,\n        \"desktopQuota\": null,\n        \"id\": \"e87a437d-6415-4898-8730-1d98ee74aa1e\",\n        \"DtLink\": [\n            {\n                \"name\": \"DtDesktopModel\",\n                \"method\": \"GET\",\n                \"href\": \"/infrastructure/model/e87a437d-6415-4898-8730-1d98ee74aa1e\",\n                \"deprecated\": false,\n                \"rel\": \"self\"\n            },\n            {\n                \"name\": \"Save\",\n                \"method\": \"POST\",\n                \"href\": \"/infrastructure/model/e87a437d-6415-4898-8730-1d98ee74aa1e/save\",\n                \"deprecated\": false,\n                \"rel\": \"action\"\n            }\n        ]\n    },\n    \"minimumAvailable\": null,\n    \"highlyAvailable\": false,\n    \"supportedPoolProtocols\": [\n        \"BLAST\",\n        \"PCOIP\"\n    ],\n    \"defaultPoolProtocol\": \"BLAST\",\n    \"usedByDataCenterIds\": [\n        \"179280e9-49e9-483d-8780-0f9b33905302\"\n    ],\n    \"lastUpdated\": 1434464447854,\n    \"poolSessionType\": \"desktop\",\n    \"vmrefreshRequired\": false,\n    \"id\": \"1006\",\n    \"DtLink\": [\n        {\n            \"name\": \"DtDesktopPool\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006\",\n            \"deprecated\": false,\n            \"rel\": \"self\"\n        },\n        {\n            \"name\": \"Update\",\n            \"method\": \"PUT\",\n            \"href\": \"/infrastructure/pool/desktop/1006/update\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"Patterns\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/patterns\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"RemoteApplications\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/remoteapps\",\n            \"deprecated\": true,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"UserDesktopMappings\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/user/desktop/mappings\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"RemoveGroupAndAutoAssignedPatternMappings\",\n            \"method\": \"PUT\",\n            \"href\": \"/infrastructure/pool/desktop/1006/remove/domain/%7BdomainId%7D/groupandautoassignedpatternmappings/%7BgroupId%7D\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"Delete\",\n            \"method\": \"DELETE\",\n            \"href\": \"/infrastructure/pool/desktop/1006/delete\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"AssignUserToPool\",\n            \"method\": \"PUT\",\n            \"href\": \"/infrastructure/pool/desktop/1006/assign/user/%7Bguid%7D\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"VirtualMachines\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/vms\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"AssignGroup\",\n            \"method\": \"PUT\",\n            \"href\": \"/infrastructure/pool/desktop/1006/assign/domain/%7BdomainId%7D/group/%7BgroupId%7D\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"RemoveGroup\",\n            \"method\": \"PUT\",\n            \"href\": \"/infrastructure/pool/desktop/1006/remove/domain/%7BdomainId%7D/group/%7BgroupId%7D\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"RemoveUserFromPool\",\n            \"method\": \"PUT\",\n            \"href\": \"/infrastructure/pool/desktop/1006/remove/user/%7Bguid%7D\",\n            \"deprecated\": false,\n            \"rel\": \"action\"\n        },\n        {\n            \"name\": \"GroupsOfPool\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/groups\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"UsersOfPool\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/users\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"UsersAssignedByAdmin\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/admin/users\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        },\n        {\n            \"name\": \"VMRefreshRequired\",\n            \"method\": \"GET\",\n            \"href\": \"/infrastructure/pool/desktop/1006/refresh/required\",\n            \"deprecated\": false,\n            \"rel\": \"association\"\n        }\n    ],\n    \"DtPoolPolicy\": {\n        \"timezone\": null,\n        \"organizationalUnit\": \"\",\n        \"clipBoardRedirect\": false,\n        \"drivesRedirect\": false,\n        \"printerRedirect\": false,\n        \"smartCardRedirect\": false,\n        \"comPortRedirect\": false,\n        \"allowFullDesktop\": true,\n        \"assignedNetworks\": [\n            \n        ],\n        \"AssignedGroups\": [\n            \n        ],\n        \"licenseKey\": null,\n        \"registeredTo\": null,\n        \"runOnceScript\": \"\",\n        \"nonPersistent\": false,\n        \"video3DEnabled\": false,\n        \"allocatorSessionTimeOut\": 4400000,\n        \"maxPoweredOnVMs\": 50,\n        \"minPoweredOnVMs\": 10,\n        \"assignedGroupNames\": [\n            \n        ],\n        \"allowedToJoinDomain\": true,\n        \"id\": \"690798857\",\n        \"DtLink\": [\n            \n        ]\n    }\n}"
+										},
+										"url": {
+											"raw": "https://10.31.28.11/dt-rest/v100/infrastructure/pool/desktop/1006/update",
+											"protocol": "https",
+											"host": [
+												"10",
+												"31",
+												"28",
+												"11"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"1006",
+												"update"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dcc721b5-a56f-4ebd-b9c8-e2d4d1dc27f0",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "4892b3dc-04e5-48a5-baff-9ab29ddc3cf7",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Delete_Pool",
+							"item": [
+								{
+									"name": "Delete_Pool",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic e4da04a7-ed44-42aa-a644-8dceac1173aa"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "6fba8f03-7216-4689-a4fa-a7f94011b92e"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://10.31.14.81/dt-rest/v100/infrastructure/pool/desktop/1011/delete",
+											"protocol": "https",
+											"host": [
+												"10",
+												"31",
+												"14",
+												"81"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"1011",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "User_Management",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+												"exec": [
+													"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+													"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"system",
+												"authenticate",
+												"credentials"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Id_for_User",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f679e8b0-0379-4a58-9453-ef8a024f4fef",
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"taUserId\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/user?name=portaluser1",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"security",
+												"domain",
+												"{{taDomain}}",
+												"user"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "portaluser1"
+												}
+											]
+										},
+										"description": "This API calls provides a way to fetch the user id for a user with name 'portaluser'."
+									},
+									"response": []
+								},
+								{
+									"name": "Get_User_By_Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/security/manager/getuserbyid?userid={{taUserId}}",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"security",
+												"manager",
+												"getuserbyid"
+											],
+											"query": [
+												{
+													"key": "userid",
+													"value": "{{taUserId}}"
+												}
+											]
+										},
+										"description": "This API calls provides a way to fetch the username when given a userid. The value for the parameter userid has been parameterized, for ease of demonstrating the API behavior. Please substitute a user name that you want to run the API call for."
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Pools",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"for (var i=0; i<jsonData.length; i++) {",
+													"    if(jsonData[i].name===\"vdi\") {",
+													"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+													"    }",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pools",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"pool",
+												"manager",
+												"pools"
+											]
+										},
+										"description": "This API returns all the existing pools in a Tenant. We capture pool Id for a pool with name 'vdi'. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+									},
+									"response": []
+								},
+								{
+									"name": "Get_User_Groups",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "75e17f87-2a95-4577-a233-f68f46632394",
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"for (var i=0; i<jsonData.length; i++) {",
+													"    if(jsonData[i].name.indexOf(\"portalusers\")>=0) {",
+													"        postman.setEnvironmentVariable(\"userGroupId\", jsonData[i].id);",
+													"    }",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/groups",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"security",
+												"domain",
+												"{{taDomain}}",
+												"groups"
+											]
+										},
+										"description": "This API calls fetches the id for a user group that contains the string *portalusers*."
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Mapped_Users",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/groups",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}",
+												"groups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Pool",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_VMs_In_Specific_Desktop_Pool",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "41ac23fd-4fc0-4a52-b291-a5f4bb226714",
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"for (var i=0; i<jsonData.length; i++) {",
+													"    if(jsonData[i].name===\"vdi0000\") {",
+													"        postman.setEnvironmentVariable(\"taDesktopPatternId\", jsonData[i].patternId);",
+													"    }",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/vms",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}",
+												"vms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Entitled_User_VM_Mapping",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/user/desktop/mappings",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}",
+												"user",
+												"desktop",
+												"mappings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Mapped_User_Groups",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/users",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_Id_for_Specific_UserGroup",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/groupsmatchingsubstring?searchString=portalusers",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"security",
+												"domain",
+												"{{taDomain}}",
+												"groupsmatchingsubstring"
+											],
+											"query": [
+												{
+													"key": "searchString",
+													"value": "portalusers"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Unassign_User_From_Desktop",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "{{taCsrfHeader}}"
+											}
+										],
+										"body": {},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pattern/static/{{taDesktopPatternId}}/remove/user/{{taUserId}}",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pattern",
+												"static",
+												"{{taDesktopPatternId}}",
+												"remove",
+												"user",
+												"{{taUserId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Assign_User_To_Pool",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "{{taCsrfHeader}}"
+											}
+										],
+										"body": {},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pattern/static/{{taDesktopPatternId}}/assign/user/{{taUserId}}",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pattern",
+												"static",
+												"{{taDesktopPatternId}}",
+												"assign",
+												"user",
+												"{{taUserId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Assign_Group_To_Pools",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "{{taCsrfHeader}}"
+											}
+										],
+										"body": {},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/group/{{userGroupId}}/assign/pool/1003",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"security",
+												"domain",
+												"{{taDomain}}",
+												"group",
+												"{{userGroupId}}",
+												"assign",
+												"pool",
+												"1003"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Assign_Group_To_Pools_New",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "{{taCsrfHeader}}"
+											}
+										],
+										"body": {},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/assign/domain/{{taDomain}}/group/{{userGroupId}}",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}",
+												"assign",
+												"domain",
+												"{{taDomain}}",
+												"group",
+												"{{userGroupId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Unassign_Group_To_Pools",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{taAuthHeader}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-dt-csrf-header",
+												"value": "{{taCsrfHeader}}"
+											}
+										],
+										"body": {},
+										"url": {
+											"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/remove/domain/{{taDomain}}/groupandcreateuserpoolmappings/{{userGroupId}}",
+											"protocol": "https",
+											"host": [
+												"{{taAddress}}"
+											],
+											"path": [
+												"dt-rest",
+												"v100",
+												"infrastructure",
+												"pool",
+												"desktop",
+												"{{taDesktopPoolId}}",
+												"remove",
+												"domain",
+												"{{taDomain}}",
+												"groupandcreateuserpoolmappings",
+												"{{userGroupId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Farm Management",
+					"item": [
+						{
+							"name": "Create_Farm",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"postman.setGlobalVariable(\"authHeader\", postman.getResponseHeader(\"Authorization\"));",
+											"postman.setGlobalVariable(\"csrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authHeader}}"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{csrfHeader}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"farmType\":\"SESSION\",\n   \"firstServerEmptyDuration\":30,\n   \"serverDensity\":40,\n   \"minServers\":\"1\",\n   \"maxServers\":\"1\",\n   \"allowedToJoinDomain\":true,\n   \"hotplugEnabled\":false,\n   \"supportedPoolProtocols\":[\n      \"BLAST\",\n      \"PCOIP\"\n   ],\n   \"preferredProtocol\":\"BLAST\",\n   \"preferredClientType\":\"BROWSER\",\n   \"domainName\":\"AUTO-TENANTB\",\n   \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n   \"tenantDesktopManagerId\":\"2B2B95E58B\",\n   \"tenantDesktopManager\":{\n      \"id\":\"2B2B95E58B\",\n      \"dateCreated\":1525908844333,\n      \"lastMonitorTime\":null,\n      \"monitoringHost\":null,\n      \"vmgrId\":\"de5cf57c-0d8c-40cc-b167-de612c91c0fb\",\n      \"organizationId\":1001,\n      \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n      \"capacity\":19,\n      \"lastUpdated\":1525908844333,\n      \"provisioningEnabled\":true,\n      \"state\":\"Online\",\n      \"name\":\"10012B2B95E58B\"\n   },\n   \"DtDesktopModelId\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n   \"DtDesktopModel\":{\n      \"id\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n      \"dateCreated\":1525908836147,\n      \"sessionBased\":true,\n      \"standardCapacityId\":\"5ade3378-9c91-4f22-bbfa-115b516ef106\",\n      \"lastUpdated\":1525910836742,\n      \"standardCapacityUnits\":1,\n      \"enabled\":true,\n      \"name\":\"Hosted App Server\"\n   },\n   \"DtGoldPattern\":{\n      \"id\":\"G.1001.14\",\n      \"md5sum\":null,\n      \"hostManagerId\":null,\n      \"osType\":\"Windows2k16_64\",\n      \"notes\":null,\n      \"inventoryPath\":null,\n      \"companyName\":\"vmw\",\n      \"timeZoneId\":\"EST\",\n      \"parentId\":null,\n      \"modified\":false,\n      \"rdshroleEnabled\":true,\n      \"ngvc\":false,\n      \"vmUuid\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n      \"version\":1004,\n      \"enabled\":true,\n      \"key\":\"\",\n      \"domain\":null,\n      \"username\":\"administrator\",\n      \"dateCreated\":1525959182705,\n      \"deleted\":false,\n      \"desktopManagerName\":\"10012B2B95E58B\",\n      \"lastUpdated\":1525959314211,\n      \"name\":\"bat-2016-RDSH-GP\",\n      \"displayText\":\"[TC] bat-2016-RDSH-GP\",\n      \"vm\":{\n         \"id\":\"33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n         \"state\":\"Success\",\n         \"vmId\":\"33aa73a9-5850-4ec8-9440-f752614dfab6\",\n         \"ipAddress\":null,\n         \"patternId\":\"G.1001.14\",\n         \"computePoolId\":\"1677cc74-19fc-44ad-b4b3-0d273eb83274\",\n         \"hotplugEnabled\":false,\n         \"macAddress\":\"00:50:56:BA:A9:59\",\n         \"refId\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n         \"externalIpAddress\":null,\n         \"goldPatternVersion\":null,\n         \"inventoryPath\":\"Datacenters/CI-VDC-03/vm/bat-2016-RDSH-GP\",\n         \"vmPath\":\"[CI-DS-03] bat-2016-RDSH-GP/bat-2016-RDSH-GP.vmx\",\n         \"templateId\":\"6b6eeef7-fa38-400e-b3f2-641e4cda7a9e\",\n         \"allocateState\":\"available\",\n         \"viewAgentVersion\":\"18.2.0.8456711\",\n         \"agentPairingAcknowledged\":true,\n         \"dnsName\":\"null@null\",\n         \"numCPUs\":1,\n         \"networkId\":\"dvpg-AUTO-TENANTB\",\n         \"threeDEnabled\":false,\n         \"powerOnDate\":1525958986519,\n         \"sealDate\":1525959314172,\n         \"desktopManagerName\":\"10012B2B95E58B\",\n         \"resyncState\":null,\n         \"customizationState\":null,\n         \"poolName\":null,\n         \"memorySizeMB\":4096,\n         \"vmlifeState\":\"IN_DOMAIN\",\n         \"vmpowerState\":\"POWERED_OFF\",\n         \"vmhardwareVersion\":\"vmx-11\",\n         \"daaSAgentVersion\":\"18.2.0\",\n         \"daaSAgentState\":\"UNKNOWN\",\n         \"vmwareToolsState\":\"NOT_RUNNING\",\n         \"guestOS\":\"WIN_SERVER_2K16_64\",\n         \"viewAgentPaired\":true,\n         \"name\":\"bat-2016-RDSH-GP\",\n         \"type\":\"VCENTER_CLUSTER\",\n         \"description\":null,\n         \"DtLink\":[\n            {\n               \"rel\":\"self\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n               \"name\":\"DtVirtualMachine\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/perform/%7Boperation%7D\",\n               \"name\":\"PerformOperation\",\n               \"method\":\"POST\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/gpname\",\n               \"name\":\"GetGPName\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            }\n         ],\n         \"lastModified\":\"5/10/18 9:35 AM\"\n      }\n   },\n   \"name\":\"testFarm2\",\n   \"vmRootName\":\"testFarm2\",\n   \"maxSessionLifetimeMinutes\":10080,\n   \"repristineSessionLimit\":100,\n   \"DtFarmRepristineSchedule\":{\n      \"frequency\":\"WEEKLY\",\n      \"dayOfWeek\":1,\n      \"hourOfDay\":\"00\"\n   },\n   \"numServerInQuiescingState\":1,\n   \"repristineType\":\"SCHEDULED\",\n   \"repristineAction\":\"POWEROFF\",\n   \"allocatorSessionTimeOut\":10800000,\n   \"allocatorSessionTimeOutVal\":180,\n   \"occupancyPresetMode\":\"OPTIMIZE_PERFORMANCE\",\n   \"emptySessionTimeoutMinutes\":1,\n   \"emptySessionDoLogoff\":false,\n   \"disconnectLimitMinutes\":0\n}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/farm/manager/farms/session",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"farm",
+										"manager",
+										"farms",
+										"session"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create_Farm_Changed",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authHeader}}"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{csrfHeader}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"farmType\":\"SESSION\",\n   \"firstServerEmptyDuration\":30,\n   \"serverDensity\":40,\n   \"minServers\":\"1\",\n   \"maxServers\":\"1\",\n   \"allowedToJoinDomain\":true,\n   \"hotplugEnabled\":false,\n   \"supportedPoolProtocols\":[\n      \"BLAST\",\n      \"PCOIP\"\n   ],\n   \"preferredProtocol\":\"BLAST\",\n   \"preferredClientType\":\"BROWSER\",\n   \"domainName\":\"AUTO-TENANTB\",\n   \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n   \"tenantDesktopManagerId\":\"2B2B95E58B\",\n   \"tenantDesktopManager\":{\n      \"id\":\"2B2B95E58B\",\n      \"dateCreated\":1525908844333,\n      \"lastMonitorTime\":null,\n      \"monitoringHost\":null,\n      \"vmgrId\":\"de5cf57c-0d8c-40cc-b167-de612c91c0fb\",\n      \"organizationId\":1001,\n      \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n      \"capacity\":19,\n      \"lastUpdated\":1525908844333,\n      \"provisioningEnabled\":true,\n      \"state\":\"Online\",\n      \"name\":\"10012B2B95E58B\"\n   },\n   \"DtDesktopModelId\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n   \"DtDesktopModel\":{\n      \"id\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n      \"dateCreated\":1525908836147,\n      \"sessionBased\":true,\n      \"standardCapacityId\":\"5ade3378-9c91-4f22-bbfa-115b516ef106\",\n      \"lastUpdated\":1525910836742,\n      \"standardCapacityUnits\":1,\n      \"enabled\":true,\n      \"name\":\"Hosted App Server\"\n   },\n   \"DtGoldPattern\":{\n      \"id\":\"G.1001.14\",\n      \"md5sum\":null,\n      \"hostManagerId\":null,\n      \"osType\":\"Windows2k16_64\",\n      \"notes\":null,\n      \"inventoryPath\":null,\n      \"companyName\":\"vmw\",\n      \"timeZoneId\":\"EST\",\n      \"parentId\":null,\n      \"modified\":false,\n      \"rdshroleEnabled\":true,\n      \"ngvc\":false,\n      \"vmUuid\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n      \"version\":1004,\n      \"enabled\":true,\n      \"key\":\"\",\n      \"domain\":null,\n      \"username\":\"administrator\",\n      \"dateCreated\":1525959182705,\n      \"deleted\":false,\n      \"desktopManagerName\":\"10012B2B95E58B\",\n      \"lastUpdated\":1525959314211,\n      \"name\":\"bat-2016-RDSH-GP\",\n      \"displayText\":\"[TC] bat-2016-RDSH-GP\",\n      \"vm\":{\n         \"id\":\"33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n         \"state\":\"Success\",\n         \"vmId\":\"33aa73a9-5850-4ec8-9440-f752614dfab6\",\n         \"ipAddress\":null,\n         \"patternId\":\"G.1001.14\",\n         \"computePoolId\":\"1677cc74-19fc-44ad-b4b3-0d273eb83274\",\n         \"hotplugEnabled\":false,\n         \"macAddress\":\"00:50:56:BA:A9:59\",\n         \"refId\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n         \"externalIpAddress\":null,\n         \"goldPatternVersion\":null,\n         \"inventoryPath\":\"Datacenters/CI-VDC-03/vm/bat-2016-RDSH-GP\",\n         \"vmPath\":\"[CI-DS-03] bat-2016-RDSH-GP/bat-2016-RDSH-GP.vmx\",\n         \"templateId\":\"6b6eeef7-fa38-400e-b3f2-641e4cda7a9e\",\n         \"allocateState\":\"available\",\n         \"viewAgentVersion\":\"18.2.0.8456711\",\n         \"agentPairingAcknowledged\":true,\n         \"dnsName\":\"null@null\",\n         \"numCPUs\":1,\n         \"networkId\":\"dvpg-AUTO-TENANTB\",\n         \"threeDEnabled\":false,\n         \"powerOnDate\":1525958986519,\n         \"sealDate\":1525959314172,\n         \"desktopManagerName\":\"10012B2B95E58B\",\n         \"resyncState\":null,\n         \"customizationState\":null,\n         \"poolName\":null,\n         \"memorySizeMB\":4096,\n         \"vmlifeState\":\"IN_DOMAIN\",\n         \"vmpowerState\":\"POWERED_OFF\",\n         \"vmhardwareVersion\":\"vmx-11\",\n         \"daaSAgentVersion\":\"18.2.0\",\n         \"daaSAgentState\":\"UNKNOWN\",\n         \"vmwareToolsState\":\"NOT_RUNNING\",\n         \"guestOS\":\"WIN_SERVER_2K16_64\",\n         \"viewAgentPaired\":true,\n         \"name\":\"bat-2016-RDSH-GP\",\n         \"type\":\"VCENTER_CLUSTER\",\n         \"description\":null,\n         \"DtLink\":[\n            {\n               \"rel\":\"self\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n               \"name\":\"DtVirtualMachine\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/perform/%7Boperation%7D\",\n               \"name\":\"PerformOperation\",\n               \"method\":\"POST\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/gpname\",\n               \"name\":\"GetGPName\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            }\n         ],\n         \"lastModified\":\"5/10/18 9:35 AM\"\n      }\n   },\n   \"name\":\"testFarm3\",\n   \"vmRootName\":\"testFarm3\",\n   \"maxSessionLifetimeMinutes\":10080,\n   \"repristineSessionLimit\":100,\n   \"DtFarmRepristineSchedule\":{\n      \"frequency\":\"WEEKLY\",\n      \"dayOfWeek\":1,\n      \"hourOfDay\":\"00\"\n   },\n   \"numServerInQuiescingState\":1,\n   \"repristineType\":\"SCHEDULED\",\n   \"repristineAction\":\"POWEROFF\",\n   \"allocatorSessionTimeOut\":10800000,\n   \"allocatorSessionTimeOutVal\":180,\n   \"occupancyPresetMode\":\"OPTIMIZE_PERFORMANCE\",\n   \"emptySessionTimeoutMinutes\":1,\n   \"emptySessionDoLogoff\":false,\n   \"disconnectLimitMinutes\":0\n}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/farm/manager/farms/session",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"farm",
+										"manager",
+										"farms",
+										"session"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_Farms",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{spAddress}}/dt-rest/v100/farm/manager",
+									"protocol": "https",
+									"host": [
+										"{{spAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"farm",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Image Management",
+					"item": [
+						{
+							"name": "Gold_Pattern_Quota",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dad091ff-3886-456e-978d-10a0c5c7c8ad"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{IP}}/dt-rest/v100/quota/manager/template/quotas?orgId=1001",
+									"protocol": "https",
+									"host": [
+										"{{IP}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"quota",
+										"manager",
+										"template",
+										"quotas"
+									],
+									"query": [
+										{
+											"key": "orgId",
+											"value": "1001"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Session_Management",
+					"item": [
+						{
+							"name": "Active_Session Logoff",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic ceb87702-5ca1-46df-bc90-7a2144dc099a"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "3696153d-a12f-41f8-b056-a1fa60ac86b4"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"vmId\": \"648cb21d-5871-4d55-be60-aed333d291e6\"}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/active",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"session",
+										"manager",
+										"session",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Session_Manager",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic ceb87702-5ca1-46df-bc90-7a2144dc099a"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "3696153d-a12f-41f8-b056-a1fa60ac86b4"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{IP}}/dt-rest/v100/session/manager",
+									"protocol": "https",
+									"host": [
+										"{{IP}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"session",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Active_Session",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic e1916003-b838-4d92-bd29-484bc405d3ff"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "143b4282-a82c-4915-8b58-b7d6716718f0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"poolId\": 1006}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/active",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"session",
+										"manager",
+										"session",
+										"active"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Task_Management",
+					"item": [
+						{
+							"name": "Task_Mgr",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/task/manager",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"task",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Task_Filter",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{taCsrfHeader}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/task/manager/filter",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"task",
+										"manager",
+										"filter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_All_Tasks",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{taCsrfHeader}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"limit\":\"5000\"}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/task/manager/tasks",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"task",
+										"manager",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Reporting_Manager",
+					"item": [
+						{
+							"name": "Reporting_Manager",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"reporting",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "VM Component Version Report",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{taCsrfHeader}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/vmcomponentversionreport",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"mapping",
+										"manager",
+										"vmcomponentversionreport"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desktop Mapping Report",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{taCsrfHeader}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/desktopmappingreport",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"mapping",
+										"manager",
+										"desktopmappingreport"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User Mapping Report Filter",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"reporting",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Mapping Report",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{taAuthHeader}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-dt-csrf-header",
+										"value": "{{taCsrfHeader}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+								},
+								"url": {
+									"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/usermappingreport",
+									"protocol": "https",
+									"host": [
+										"{{taAddress}}"
+									],
+									"path": [
+										"dt-rest",
+										"v100",
+										"mapping",
+										"manager",
+										"usermappingreport"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "System_Manager",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic 8501fd0f-2846-4bf6-a4f8-5520d8f137d1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{IP}}/dt-rest/v100/system/version",
+							"protocol": "https",
+							"host": [
+								"{{IP}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"system",
+								"version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setting_Manager",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic e1916003-b838-4d92-bd29-484bc405d3ff"
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/filter",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"session",
+								"manager",
+								"session",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quota_Manager",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic 204fd09d-be8b-4cae-8d39-d7400169881d"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{IP}}/dt-rest/v100/quota/manager/model/quotas",
+							"protocol": "https",
+							"host": [
+								"{{IP}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"quota",
+								"manager",
+								"model",
+								"quotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pool_Manager",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authHeader}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"pool",
+								"manager"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
