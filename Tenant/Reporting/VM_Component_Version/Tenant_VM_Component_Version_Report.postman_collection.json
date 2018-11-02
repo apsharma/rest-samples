@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "3901eb2f-1954-4ea5-82ae-7bfda5c9421d",
+		"name": "Tenant_VM_Component_Version_Report",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "VM Component Version Report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"desktopManagerId\":\"857D46FF75\"}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/vmcomponentversionreport",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"mapping",
+						"manager",
+						"vmcomponentversionreport"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

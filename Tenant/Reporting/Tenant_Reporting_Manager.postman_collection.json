@@ -40,9 +40,9 @@
 			"response": []
 		},
 		{
-			"name": "VM Component Version Report",
+			"name": "Tenant_Usage_Report",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
@@ -50,25 +50,15 @@
 					},
 					{
 						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"value": "{{taCsrfHeader}}"
-					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "text/csv"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/vmcomponentversionreport",
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/tenantusagereport",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -76,61 +66,16 @@
 					"path": [
 						"dt-rest",
 						"v100",
-						"mapping",
+						"reporting",
 						"manager",
-						"vmcomponentversionreport"
+						"tenantusagereport"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Desktop Mapping Report",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"value": "{{taCsrfHeader}}"
-					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/desktopmappingreport",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"mapping",
-						"manager",
-						"desktopmappingreport"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create User Mapping Report Filter",
+			"name": "Vidm_Report",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -148,7 +93,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager",
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/downloadvidmreport?numberofvidmreports=5",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -157,16 +102,66 @@
 						"dt-rest",
 						"v100",
 						"reporting",
-						"manager"
+						"manager",
+						"downloadvidmreport"
+					],
+					"query": [
+						{
+							"key": "numberofvidmreports",
+							"value": "5"
+						}
 					]
-				}
+				},
+				"description": "This API call actually downloads the vIDM logs. Not sure whether this is the right place to put this API call."
 			},
 			"response": []
 		},
 		{
-			"name": "User Mapping Report",
+			"name": "Std_Capacity_Report",
 			"request": {
-				"method": "POST",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "text/csv"
+					},
+					{
+						"key": "Content-Disposition",
+						"value": "attachment;filename=scr.csv",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/stdcapacityreport",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"reporting",
+						"manager",
+						"stdcapacityreport"
+					]
+				},
+				"description": "This API call actually downloads the vIDM logs. Not sure whether this is the right place to put this API call."
+			},
+			"response": []
+		},
+		{
+			"name": "Win_Server_Usage_Report",
+			"request": {
+				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
@@ -175,24 +170,14 @@
 					{
 						"key": "Accept",
 						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"value": "{{taCsrfHeader}}"
-					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/usermappingreport",
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/hostwinservervmworkloadreport",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -200,9 +185,44 @@
 					"path": [
 						"dt-rest",
 						"v100",
-						"mapping",
+						"reporting",
 						"manager",
-						"usermappingreport"
+						"hostwinservervmworkloadreport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Available_User_Reports",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/availableReportList",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"reporting",
+						"manager",
+						"availableReportList"
 					]
 				}
 			},
