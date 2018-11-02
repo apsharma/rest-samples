@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "6b833b22-0165-4cd9-9e7b-5f0727963631",
+		"name": "Tenant_Reporting_Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Reporting_Manager",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"reporting",
+						"manager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VM Component Version Report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/vmcomponentversionreport",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"mapping",
+						"manager",
+						"vmcomponentversionreport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Desktop Mapping Report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/desktopmappingreport",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"mapping",
+						"manager",
+						"desktopmappingreport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Mapping Report Filter",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"reporting",
+						"manager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Mapping Report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"desktopManagerId\":\"58C08EE06C\"}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/usermappingreport",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"mapping",
+						"manager",
+						"usermappingreport"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

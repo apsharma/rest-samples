@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "0cf862a9-c98b-44c6-ab5e-0b79bab728d8",
+		"name": "Tenant_Image_Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gold_Pattern_Quota",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dad091ff-3886-456e-978d-10a0c5c7c8ad"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{IP}}/dt-rest/v100/quota/manager/template/quotas?orgId=1001",
+					"protocol": "https",
+					"host": [
+						"{{IP}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"quota",
+						"manager",
+						"template",
+						"quotas"
+					],
+					"query": [
+						{
+							"key": "orgId",
+							"value": "1001"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "8b89ff90-b603-409c-a298-e14669bd4d1d",
+		"name": "Tenant_Farm_Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Farms",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{spAddress}}/dt-rest/v100/farm/manager",
+					"protocol": "https",
+					"host": [
+						"{{spAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"farm",
+						"manager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Farm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"authHeader\", postman.getResponseHeader(\"Authorization\"));",
+							"postman.setGlobalVariable(\"csrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{authHeader}}"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{csrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"farmType\":\"SESSION\",\n   \"firstServerEmptyDuration\":30,\n   \"serverDensity\":40,\n   \"minServers\":\"1\",\n   \"maxServers\":\"1\",\n   \"allowedToJoinDomain\":true,\n   \"hotplugEnabled\":false,\n   \"supportedPoolProtocols\":[\n      \"BLAST\",\n      \"PCOIP\"\n   ],\n   \"preferredProtocol\":\"BLAST\",\n   \"preferredClientType\":\"BROWSER\",\n   \"domainName\":\"AUTO-TENANTB\",\n   \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n   \"tenantDesktopManagerId\":\"2B2B95E58B\",\n   \"tenantDesktopManager\":{\n      \"id\":\"2B2B95E58B\",\n      \"dateCreated\":1525908844333,\n      \"lastMonitorTime\":null,\n      \"monitoringHost\":null,\n      \"vmgrId\":\"de5cf57c-0d8c-40cc-b167-de612c91c0fb\",\n      \"organizationId\":1001,\n      \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n      \"capacity\":19,\n      \"lastUpdated\":1525908844333,\n      \"provisioningEnabled\":true,\n      \"state\":\"Online\",\n      \"name\":\"10012B2B95E58B\"\n   },\n   \"DtDesktopModelId\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n   \"DtDesktopModel\":{\n      \"id\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n      \"dateCreated\":1525908836147,\n      \"sessionBased\":true,\n      \"standardCapacityId\":\"5ade3378-9c91-4f22-bbfa-115b516ef106\",\n      \"lastUpdated\":1525910836742,\n      \"standardCapacityUnits\":1,\n      \"enabled\":true,\n      \"name\":\"Hosted App Server\"\n   },\n   \"DtGoldPattern\":{\n      \"id\":\"G.1001.14\",\n      \"md5sum\":null,\n      \"hostManagerId\":null,\n      \"osType\":\"Windows2k16_64\",\n      \"notes\":null,\n      \"inventoryPath\":null,\n      \"companyName\":\"vmw\",\n      \"timeZoneId\":\"EST\",\n      \"parentId\":null,\n      \"modified\":false,\n      \"rdshroleEnabled\":true,\n      \"ngvc\":false,\n      \"vmUuid\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n      \"version\":1004,\n      \"enabled\":true,\n      \"key\":\"\",\n      \"domain\":null,\n      \"username\":\"administrator\",\n      \"dateCreated\":1525959182705,\n      \"deleted\":false,\n      \"desktopManagerName\":\"10012B2B95E58B\",\n      \"lastUpdated\":1525959314211,\n      \"name\":\"bat-2016-RDSH-GP\",\n      \"displayText\":\"[TC] bat-2016-RDSH-GP\",\n      \"vm\":{\n         \"id\":\"33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n         \"state\":\"Success\",\n         \"vmId\":\"33aa73a9-5850-4ec8-9440-f752614dfab6\",\n         \"ipAddress\":null,\n         \"patternId\":\"G.1001.14\",\n         \"computePoolId\":\"1677cc74-19fc-44ad-b4b3-0d273eb83274\",\n         \"hotplugEnabled\":false,\n         \"macAddress\":\"00:50:56:BA:A9:59\",\n         \"refId\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n         \"externalIpAddress\":null,\n         \"goldPatternVersion\":null,\n         \"inventoryPath\":\"Datacenters/CI-VDC-03/vm/bat-2016-RDSH-GP\",\n         \"vmPath\":\"[CI-DS-03] bat-2016-RDSH-GP/bat-2016-RDSH-GP.vmx\",\n         \"templateId\":\"6b6eeef7-fa38-400e-b3f2-641e4cda7a9e\",\n         \"allocateState\":\"available\",\n         \"viewAgentVersion\":\"18.2.0.8456711\",\n         \"agentPairingAcknowledged\":true,\n         \"dnsName\":\"null@null\",\n         \"numCPUs\":1,\n         \"networkId\":\"dvpg-AUTO-TENANTB\",\n         \"threeDEnabled\":false,\n         \"powerOnDate\":1525958986519,\n         \"sealDate\":1525959314172,\n         \"desktopManagerName\":\"10012B2B95E58B\",\n         \"resyncState\":null,\n         \"customizationState\":null,\n         \"poolName\":null,\n         \"memorySizeMB\":4096,\n         \"vmlifeState\":\"IN_DOMAIN\",\n         \"vmpowerState\":\"POWERED_OFF\",\n         \"vmhardwareVersion\":\"vmx-11\",\n         \"daaSAgentVersion\":\"18.2.0\",\n         \"daaSAgentState\":\"UNKNOWN\",\n         \"vmwareToolsState\":\"NOT_RUNNING\",\n         \"guestOS\":\"WIN_SERVER_2K16_64\",\n         \"viewAgentPaired\":true,\n         \"name\":\"bat-2016-RDSH-GP\",\n         \"type\":\"VCENTER_CLUSTER\",\n         \"description\":null,\n         \"DtLink\":[\n            {\n               \"rel\":\"self\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n               \"name\":\"DtVirtualMachine\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/perform/%7Boperation%7D\",\n               \"name\":\"PerformOperation\",\n               \"method\":\"POST\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/gpname\",\n               \"name\":\"GetGPName\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            }\n         ],\n         \"lastModified\":\"5/10/18 9:35 AM\"\n      }\n   },\n   \"name\":\"testFarm2\",\n   \"vmRootName\":\"testFarm2\",\n   \"maxSessionLifetimeMinutes\":10080,\n   \"repristineSessionLimit\":100,\n   \"DtFarmRepristineSchedule\":{\n      \"frequency\":\"WEEKLY\",\n      \"dayOfWeek\":1,\n      \"hourOfDay\":\"00\"\n   },\n   \"numServerInQuiescingState\":1,\n   \"repristineType\":\"SCHEDULED\",\n   \"repristineAction\":\"POWEROFF\",\n   \"allocatorSessionTimeOut\":10800000,\n   \"allocatorSessionTimeOutVal\":180,\n   \"occupancyPresetMode\":\"OPTIMIZE_PERFORMANCE\",\n   \"emptySessionTimeoutMinutes\":1,\n   \"emptySessionDoLogoff\":false,\n   \"disconnectLimitMinutes\":0\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/farm/manager/farms/session",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"farm",
+						"manager",
+						"farms",
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Farm_Changed",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{authHeader}}"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{csrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"farmType\":\"SESSION\",\n   \"firstServerEmptyDuration\":30,\n   \"serverDensity\":40,\n   \"minServers\":\"1\",\n   \"maxServers\":\"1\",\n   \"allowedToJoinDomain\":true,\n   \"hotplugEnabled\":false,\n   \"supportedPoolProtocols\":[\n      \"BLAST\",\n      \"PCOIP\"\n   ],\n   \"preferredProtocol\":\"BLAST\",\n   \"preferredClientType\":\"BROWSER\",\n   \"domainName\":\"AUTO-TENANTB\",\n   \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n   \"tenantDesktopManagerId\":\"2B2B95E58B\",\n   \"tenantDesktopManager\":{\n      \"id\":\"2B2B95E58B\",\n      \"dateCreated\":1525908844333,\n      \"lastMonitorTime\":null,\n      \"monitoringHost\":null,\n      \"vmgrId\":\"de5cf57c-0d8c-40cc-b167-de612c91c0fb\",\n      \"organizationId\":1001,\n      \"dataCenterId\":\"2980a11e-05b9-4f23-aa07-9f43802a434b\",\n      \"capacity\":19,\n      \"lastUpdated\":1525908844333,\n      \"provisioningEnabled\":true,\n      \"state\":\"Online\",\n      \"name\":\"10012B2B95E58B\"\n   },\n   \"DtDesktopModelId\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n   \"DtDesktopModel\":{\n      \"id\":\"543f15a3-20b9-40a2-82eb-094ee34097df\",\n      \"dateCreated\":1525908836147,\n      \"sessionBased\":true,\n      \"standardCapacityId\":\"5ade3378-9c91-4f22-bbfa-115b516ef106\",\n      \"lastUpdated\":1525910836742,\n      \"standardCapacityUnits\":1,\n      \"enabled\":true,\n      \"name\":\"Hosted App Server\"\n   },\n   \"DtGoldPattern\":{\n      \"id\":\"G.1001.14\",\n      \"md5sum\":null,\n      \"hostManagerId\":null,\n      \"osType\":\"Windows2k16_64\",\n      \"notes\":null,\n      \"inventoryPath\":null,\n      \"companyName\":\"vmw\",\n      \"timeZoneId\":\"EST\",\n      \"parentId\":null,\n      \"modified\":false,\n      \"rdshroleEnabled\":true,\n      \"ngvc\":false,\n      \"vmUuid\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n      \"version\":1004,\n      \"enabled\":true,\n      \"key\":\"\",\n      \"domain\":null,\n      \"username\":\"administrator\",\n      \"dateCreated\":1525959182705,\n      \"deleted\":false,\n      \"desktopManagerName\":\"10012B2B95E58B\",\n      \"lastUpdated\":1525959314211,\n      \"name\":\"bat-2016-RDSH-GP\",\n      \"displayText\":\"[TC] bat-2016-RDSH-GP\",\n      \"vm\":{\n         \"id\":\"33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n         \"state\":\"Success\",\n         \"vmId\":\"33aa73a9-5850-4ec8-9440-f752614dfab6\",\n         \"ipAddress\":null,\n         \"patternId\":\"G.1001.14\",\n         \"computePoolId\":\"1677cc74-19fc-44ad-b4b3-0d273eb83274\",\n         \"hotplugEnabled\":false,\n         \"macAddress\":\"00:50:56:BA:A9:59\",\n         \"refId\":\"423acdad-42de-c216-da1b-e8736625afc3\",\n         \"externalIpAddress\":null,\n         \"goldPatternVersion\":null,\n         \"inventoryPath\":\"Datacenters/CI-VDC-03/vm/bat-2016-RDSH-GP\",\n         \"vmPath\":\"[CI-DS-03] bat-2016-RDSH-GP/bat-2016-RDSH-GP.vmx\",\n         \"templateId\":\"6b6eeef7-fa38-400e-b3f2-641e4cda7a9e\",\n         \"allocateState\":\"available\",\n         \"viewAgentVersion\":\"18.2.0.8456711\",\n         \"agentPairingAcknowledged\":true,\n         \"dnsName\":\"null@null\",\n         \"numCPUs\":1,\n         \"networkId\":\"dvpg-AUTO-TENANTB\",\n         \"threeDEnabled\":false,\n         \"powerOnDate\":1525958986519,\n         \"sealDate\":1525959314172,\n         \"desktopManagerName\":\"10012B2B95E58B\",\n         \"resyncState\":null,\n         \"customizationState\":null,\n         \"poolName\":null,\n         \"memorySizeMB\":4096,\n         \"vmlifeState\":\"IN_DOMAIN\",\n         \"vmpowerState\":\"POWERED_OFF\",\n         \"vmhardwareVersion\":\"vmx-11\",\n         \"daaSAgentVersion\":\"18.2.0\",\n         \"daaSAgentState\":\"UNKNOWN\",\n         \"vmwareToolsState\":\"NOT_RUNNING\",\n         \"guestOS\":\"WIN_SERVER_2K16_64\",\n         \"viewAgentPaired\":true,\n         \"name\":\"bat-2016-RDSH-GP\",\n         \"type\":\"VCENTER_CLUSTER\",\n         \"description\":null,\n         \"DtLink\":[\n            {\n               \"rel\":\"self\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14\",\n               \"name\":\"DtVirtualMachine\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/perform/%7Boperation%7D\",\n               \"name\":\"PerformOperation\",\n               \"method\":\"POST\",\n               \"deprecated\":false\n            },\n            {\n               \"rel\":\"action\",\n               \"href\":\"/infrastructure/vm/33aa73a9-5850-4ec8-9440-f752614dfab6_G.1001.14/gpname\",\n               \"name\":\"GetGPName\",\n               \"method\":\"GET\",\n               \"deprecated\":false\n            }\n         ],\n         \"lastModified\":\"5/10/18 9:35 AM\"\n      }\n   },\n   \"name\":\"testFarm3\",\n   \"vmRootName\":\"testFarm3\",\n   \"maxSessionLifetimeMinutes\":10080,\n   \"repristineSessionLimit\":100,\n   \"DtFarmRepristineSchedule\":{\n      \"frequency\":\"WEEKLY\",\n      \"dayOfWeek\":1,\n      \"hourOfDay\":\"00\"\n   },\n   \"numServerInQuiescingState\":1,\n   \"repristineType\":\"SCHEDULED\",\n   \"repristineAction\":\"POWEROFF\",\n   \"allocatorSessionTimeOut\":10800000,\n   \"allocatorSessionTimeOutVal\":180,\n   \"occupancyPresetMode\":\"OPTIMIZE_PERFORMANCE\",\n   \"emptySessionTimeoutMinutes\":1,\n   \"emptySessionDoLogoff\":false,\n   \"disconnectLimitMinutes\":0\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/farm/manager/farms/session",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"farm",
+						"manager",
+						"farms",
+						"session"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
