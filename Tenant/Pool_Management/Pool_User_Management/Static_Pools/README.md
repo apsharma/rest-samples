@@ -1,1 +1,1 @@
-This file will detail the various steps involved with assigning or unassigning users or usergroups to Static Pools.
+This POSTMAN Collection can, now, probably be deleted since the API calls have been organized into two separate folders - one for Users and the other for Usergroups.

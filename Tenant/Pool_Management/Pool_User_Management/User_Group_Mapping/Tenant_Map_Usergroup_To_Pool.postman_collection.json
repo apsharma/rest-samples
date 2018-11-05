@@ -1,0 +1,405 @@
+{
+	"info": {
+		"_postman_id": "c76a1f54-517e-48a3-bc75-48a53e8c4e86",
+		"name": "Tenant_Map_Usergroup_To_Pool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+						"exec": [
+							"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+							"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"system",
+						"authenticate",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Pools",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pools",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"pools"
+					]
+				},
+				"description": "This API returns all the existing pools in a Tenant. We capture pool Id for a pool with name **vdi**. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_User_Groups",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75e17f87-2a95-4577-a233-f68f46632394",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name.indexOf(\"portalusers\")>=0) {",
+							"        postman.setEnvironmentVariable(\"userGroupId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/groups",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"security",
+						"domain",
+						"{{taDomain}}",
+						"groups"
+					]
+				},
+				"description": "This API calls fetches all usergroups in the Active Directory. The tests section then extracts id for a usergroup that contains the string *portalusers* - from the Response Body and sets it to an environment variable *userGroupId*."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Id_for_Specific_UserGroup",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/groupsmatchingsubstring?searchString=portalusers",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"security",
+						"domain",
+						"{{taDomain}}",
+						"groupsmatchingsubstring"
+					],
+					"query": [
+						{
+							"key": "searchString",
+							"value": "portalusers"
+						}
+					]
+				},
+				"description": "Search for Usergroups by search string. In this case, find usergroups containing the string **portalusers**."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Usergroups_Mapped_To_Pool",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/groups",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"groups"
+					]
+				},
+				"description": "API call to fetch usergroups mapped to a Pool."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Users_Mapped_To_Pool",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/users",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign_Group_To_Pools",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/group/{{userGroupId}}/assign/pool/{{taDesktopPoolId}}",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"security",
+						"domain",
+						"{{taDomain}}",
+						"group",
+						"{{userGroupId}}",
+						"assign",
+						"pool",
+						"{{taDesktopPoolId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unassign_Group_To_Pools",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/remove/domain/{{taDomain}}/groupandcreateuserpoolmappings/{{userGroupId}}",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"remove",
+						"domain",
+						"{{taDomain}}",
+						"groupandcreateuserpoolmappings",
+						"{{userGroupId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign_Group_To_Pools_New",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/assign/domain/{{taDomain}}/group/{{userGroupId}}",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"assign",
+						"domain",
+						"{{taDomain}}",
+						"group",
+						"{{userGroupId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
