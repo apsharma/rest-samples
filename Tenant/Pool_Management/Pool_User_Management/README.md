@@ -1,1 +1,0 @@
-This file will detail the various steps involved with assigning or unassigning users or usergroups to various types of Pools.

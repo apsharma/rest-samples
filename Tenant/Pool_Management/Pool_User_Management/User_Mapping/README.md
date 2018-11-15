@@ -1,1 +1,0 @@
-README will describe API calls related to mapping/un-mapping users to Desktops or Assignments.

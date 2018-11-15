@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "ae1a628c-ddf6-4c2e-a1b9-689fd511beed",
+		"name": "Tenant_User_Session_Mgmt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+						"exec": [
+							"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+							"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"system",
+						"authenticate",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Active_Sessions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45726634-c18b-4c12-8d35-fb1b4015b081",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"userSessionId\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"poolId\":\"1003\"}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/active",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"session",
+						"manager",
+						"session",
+						"active"
+					]
+				},
+				"description": "NOT REALLY  USED"
+			},
+			"response": []
+		},
+		{
+			"name": "User_Logoff",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "sessionId={{userSessionId}}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/logoff",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"session",
+						"manager",
+						"session",
+						"logoff"
+					]
+				},
+				"description": "NOT REALLY  USED"
+			},
+			"response": []
+		},
+		{
+			"name": "User_Disconnect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "sessionId=oKsdiA4irIBZoYCojaw_8A=="
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/disconnect",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"session",
+						"manager",
+						"session",
+						"disconnect"
+					]
+				},
+				"description": "NOT REALLY  USED"
+			},
+			"response": []
+		}
+	]
+}

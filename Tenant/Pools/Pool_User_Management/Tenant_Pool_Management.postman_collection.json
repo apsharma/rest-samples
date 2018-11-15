@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "8cadac73-be5d-4566-abeb-17e934ba3cbb",
+		"name": "Tenant_Pool_Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Pools",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pools",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"pools"
+					]
+				},
+				"description": "This API returns all the existing pools in a Tenant. We capture pool Id for a pool with name **vdi**. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Pool_Attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/1003",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"1003"
+					]
+				},
+				"description": "This API provides the attributes (or metadata) for a pool such as Preferred Client Type, Supported Protocols, Requested Pool Size, Actual Pool Size, Gold Pattern used to build the pool, etc. Please change the pool id according to your environment."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_All_VMs_In_A_Pool",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/1003/allvms",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"1003",
+						"allvms"
+					]
+				},
+				"description": "This API returns all the existing VMs in a Pool. The response provides detailed information about each VM such as the pattern Id, IP Address, DNS Name, Pod Name, VM Life State, Agent State, Mac Address. This response is also useful in determining whether a desktop is available for assignment or has been allocated to a user (allocateState)."
+			},
+			"response": []
+		},
+		{
+			"name": "Power_Operations_On_VM",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"type": "text",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\"vmId\": \"4abc5471-f5fb-4e3f-ad05-d21afc21ec3b\", \"patternId\": \"S.1001.13.1\"}]"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/manager/{{taDesktopPoolId}}/vms/perform/POWEROFF",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"manager",
+						"{{taDesktopPoolId}}",
+						"vms",
+						"perform",
+						"POWEROFF"
+					]
+				},
+				"description": "REST API for Power Operations on VM.\nChange action name for different operations.\nValid Values: REBOOT, POWERON, POWEROFF, RESET, SHUTDOWN, STANDBY, SUSPEND."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_User_Desktop_Mappings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/1003/user/desktop/mappings",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"1003",
+						"user",
+						"desktop",
+						"mappings"
+					]
+				},
+				"description": "This API returns all the existing pools in a Tenant. We capture pool Id for a pool with name **vdi**. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Patterns_In_A_Pool",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/1003/patterns",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"1003",
+						"patterns"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

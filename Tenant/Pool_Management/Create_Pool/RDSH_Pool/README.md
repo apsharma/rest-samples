@@ -1,1 +1,0 @@
-This is a README file that will explain how to create RDSH Image based pools.

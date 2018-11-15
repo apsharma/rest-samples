@@ -1,1 +1,1 @@
-This file will detail the various steps involved with managing tasks - monitoring, cancelling, creating, etc.
+This file will detail the various steps involved with managing tasks - monitoring, cancelling, creating, etc. (Work In Progress)

@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "bbcee551-9c0b-4145-882c-51e4a87cc4d5",
-		"name": "Tenant_Map_User_To_Desktop",
+		"_postman_id": "c76a1f54-517e-48a3-bc75-48a53e8c4e86",
+		"name": "Tenant_Map_Usergroup_To_Pool",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -50,153 +50,18 @@
 			"response": []
 		},
 		{
-			"name": "Get_Id_for_User",
+			"name": "Get_Pools",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "f679e8b0-0379-4a58-9453-ef8a024f4fef",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"taUserId\", jsonData.id);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/user?name=portaluser1",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"security",
-						"domain",
-						"{{taDomain}}",
-						"user"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "portaluser1"
-						}
-					]
-				},
-				"description": "This API calls provides a way to fetch the user id for a user with name 'portaluser1'."
-			},
-			"response": []
-		},
-		{
-			"name": "Get_User_By_Id",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/security/manager/getuserbyid?userid={{taUserId}}",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"security",
-						"manager",
-						"getuserbyid"
-					],
-					"query": [
-						{
-							"key": "userid",
-							"value": "{{taUserId}}"
-						}
-					]
-				},
-				"description": "This API calls provides a way to fetch the username when given a userid. The value for the parameter userid has been parameterized, for ease of demonstrating the API behavior. Please substitute a user name that you want to run the API call for."
-			},
-			"response": []
-		},
-		{
-			"name": "Get_All_Pools",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"infrastructure",
-						"pool",
-						"desktop",
-						"{{taDesktopPoolId}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get_VMs_In_Specific_Desktop_Pool",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "41ac23fd-4fc0-4a52-b291-a5f4bb226714",
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"",
 							"for (var i=0; i<jsonData.length; i++) {",
-							"    if(jsonData[i].name===\"vdi0000\") {",
-							"        postman.setEnvironmentVariable(\"taDesktopPatternId\", jsonData[i].patternId);",
+							"    if(jsonData[i].name===\"vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
 							"    }",
 							"}"
 						],
@@ -221,7 +86,141 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/vms",
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pools",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"pools"
+					]
+				},
+				"description": "This API returns all the existing pools in a Tenant. We capture pool Id for a pool with name **vdi**. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_User_Groups",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75e17f87-2a95-4577-a233-f68f46632394",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name.indexOf(\"portalusers\")>=0) {",
+							"        postman.setEnvironmentVariable(\"userGroupId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/groups",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"security",
+						"domain",
+						"{{taDomain}}",
+						"groups"
+					]
+				},
+				"description": "This API calls fetches all usergroups in the Active Directory. The tests section then extracts id for a usergroup that contains the string *portalusers* - from the Response Body and sets it to an environment variable *userGroupId*."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Id_for_Specific_UserGroup",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/security/domain/{{taDomain}}/groupsmatchingsubstring?searchString=portalusers",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"security",
+						"domain",
+						"{{taDomain}}",
+						"groupsmatchingsubstring"
+					],
+					"query": [
+						{
+							"key": "searchString",
+							"value": "portalusers"
+						}
+					]
+				},
+				"description": "Search for Usergroups by search string. In this case, find usergroups containing the string **portalusers**."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Usergroups_Mapped_To_Pool",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/groups",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -233,15 +232,52 @@
 						"pool",
 						"desktop",
 						"{{taDesktopPoolId}}",
-						"vms"
+						"groups"
 					]
 				},
-				"description": "This API fetches all VMs in a Desktop Pool. The API call is used to fetch the Desktop Pattern Id for a Desktop with Id **vdi0000**."
+				"description": "API call to fetch usergroups mapped to a Pool."
 			},
 			"response": []
 		},
 		{
-			"name": "Assign_User_To_Desktop",
+			"name": "Get_Users_Mapped_To_Pool",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/users",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unassign_Group_To_Pools",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -260,7 +296,7 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pattern/static/{{taDesktopPatternId}}/assign/user/{{taUserId}}",
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/remove/domain/{{taDomain}}/groupandcreateuserpoolmappings/{{userGroupId}}",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -269,19 +305,21 @@
 						"dt-rest",
 						"v100",
 						"infrastructure",
-						"pattern",
-						"static",
-						"{{taDesktopPatternId}}",
-						"assign",
-						"user",
-						"{{taUserId}}"
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"remove",
+						"domain",
+						"{{taDomain}}",
+						"groupandcreateuserpoolmappings",
+						"{{userGroupId}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Unassign_User_From_Desktop",
+			"name": "Assign_Group_To_Pools",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -290,13 +328,17 @@
 						"value": "{{taAuthHeader}}"
 					},
 					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
 						"key": "x-dt-csrf-header",
 						"value": "{{taCsrfHeader}}"
 					}
 				],
 				"body": {},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pattern/static/{{taDesktopPatternId}}/remove/user/{{taUserId}}",
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/assign/domain/{{taDomain}}/group/{{userGroupId}}",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -305,12 +347,14 @@
 						"dt-rest",
 						"v100",
 						"infrastructure",
-						"pattern",
-						"static",
-						"{{taDesktopPatternId}}",
-						"remove",
-						"user",
-						"{{taUserId}}"
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"assign",
+						"domain",
+						"{{taDomain}}",
+						"group",
+						"{{userGroupId}}"
 					]
 				}
 			},
