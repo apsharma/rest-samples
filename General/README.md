@@ -1,1 +1,0 @@
-This file will detail the various APIs available for both Service Providers and Tenants.
