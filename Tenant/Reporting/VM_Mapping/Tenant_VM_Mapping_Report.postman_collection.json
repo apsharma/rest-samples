@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "519a8bd8-0ad4-4123-9cd0-fff3d708f0d2",
+		"_postman_id": "031e809e-4399-4b09-b2b5-0468a798f1ec",
 		"name": "Tenant_VM_Mapping_Report",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "2: Create_VM_Mapping_Report_Filter",
+			"name": "Create_VM_Mapping_Report_Filter",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -37,12 +37,12 @@
 						"createvmmappingreportfilter"
 					]
 				},
-				"description": "This API request helps identify the various criterion or filters that can be used to fetch the User Activity Report."
+				"description": "This API request helps identify the various criterion or filters that can be used to fetch the Virtual Machine and User Mapping Report."
 			},
 			"response": []
 		},
 		{
-			"name": "2: Desktop Mapping Report",
+			"name": "Desktop Mapping Report",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -81,178 +81,6 @@
 						"mapping",
 						"manager",
 						"desktopmappingreport"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2: Initialize_VM_Mapping_Report",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c7562e2e-1ae1-41a3-ab94-19932eac1a60",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"",
-							"pm.environment.set(\"vmMappingReportId\", jsonData);",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"type": "text",
-						"value": "{{taCsrfHeader}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/initreportingjob?jobname=VM_MAPPING",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"reporting",
-						"manager",
-						"initreportingjob"
-					],
-					"query": [
-						{
-							"key": "jobname",
-							"value": "VM_MAPPING"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2: Get_VM_Mapping_Activity_Report_Status",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"type": "text",
-						"value": "{{taCsrfHeader}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"numberReportDays\": 10,\n    \"includePoolName\":true,\n    \"includeVirtualMachineName\":true\n}"
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/getreportingstatusinfo?jobid={{vmMappingReportId}}",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"reporting",
-						"manager",
-						"getreportingstatusinfo"
-					],
-					"query": [
-						{
-							"key": "jobid",
-							"value": "{{vmMappingReportId}}"
-						}
-					]
-				},
-				"description": "Retrieves a list of UserEvents objects for the criterion specified in the filter.\nP.S. - Although the documentation and the method in the Impl class seem to indicate the ability to use parameters: sortcriteria and sortorder, I have not been able to figure out how this out work."
-			},
-			"response": []
-		},
-		{
-			"name": "2: Download_VM_Mapping_Report",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"type": "text",
-						"value": "{{taCsrfHeader}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"numberReportDays\": 10,\n    \"includePoolName\":true,\n    \"includeVirtualMachineName\":true\n}"
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/reporting/manager/downloadfile?jobid={{vmMappingReportId}}",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"reporting",
-						"manager",
-						"downloadfile"
-					],
-					"query": [
-						{
-							"key": "jobid",
-							"value": "{{vmMappingReportId}}"
-						}
 					]
 				}
 			},
