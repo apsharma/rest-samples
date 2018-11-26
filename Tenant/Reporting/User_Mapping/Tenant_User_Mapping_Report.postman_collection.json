@@ -1,12 +1,15 @@
 {
 	"info": {
-		"_postman_id": "031e809e-4399-4b09-b2b5-0468a798f1ec",
-		"name": "Tenant_VM_Mapping_Report",
+		"_postman_id": "f57d9c4c-3b20-44f4-816d-9b861ae0ae74",
+		"name": "Tenant_User_Mapping_Report",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create_VM_Mapping_Report_Filter",
+			"name": "User_Mapping_Report_Filter",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [
@@ -17,6 +20,16 @@
 					{
 						"key": "Accept",
 						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -24,7 +37,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/createvmmappingreportfilter",
+					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/createusermappingreportfilter",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -34,10 +47,9 @@
 						"v100",
 						"mapping",
 						"manager",
-						"createvmmappingreportfilter"
+						"createusermappingreportfilter"
 					]
-				},
-				"description": "This API request helps identify the various criterion or filters that can be used to fetch the Virtual Machine and User Mapping Report."
+				}
 			},
 			"response": []
 		},
@@ -258,7 +270,7 @@
 			]
 		},
 		{
-			"name": "Desktop Mapping Report",
+			"name": "User Mapping Report",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -283,10 +295,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"desktopManagerId\": \"{{tenantDesktopManager}}\"\n}"
+					"raw": "{\"desktopManagerId\":\"{{taDesktopManager}}\"}"
 				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/desktopmappingreport",
+					"raw": "https://{{taAddress}}/dt-rest/v100/mapping/manager/usermappingreport?sortCriteria=userName&sortOrder=Ascending",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
@@ -296,7 +308,17 @@
 						"v100",
 						"mapping",
 						"manager",
-						"desktopmappingreport"
+						"usermappingreport"
+					],
+					"query": [
+						{
+							"key": "sortCriteria",
+							"value": "userName"
+						},
+						{
+							"key": "sortOrder",
+							"value": "Ascending"
+						}
 					]
 				}
 			},
@@ -307,7 +329,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "e0615775-b72f-4561-b581-8c05d2a1809f",
+				"id": "fde8ceb3-d184-4b78-b893-574c1723d065",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -317,7 +339,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "2c05f3e4-988d-48c0-9f64-a37c73aa4a4f",
+				"id": "b89a4133-3c7c-4ed3-9140-427d91b3ba94",
 				"type": "text/javascript",
 				"exec": [
 					""

@@ -88,7 +88,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"poolId\":\"1003\"}"
+					"raw": "{\"poolId\":\"{{taDesktopPoolId}}\"}"
 				},
 				"url": {
 					"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/active",
@@ -178,7 +178,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "sessionId=oKsdiA4irIBZoYCojaw_8A=="
+					"raw": "sessionId={{userSessionId}}"
 				},
 				"url": {
 					"raw": "https://{{taAddress}}/dt-rest/v100/session/manager/session/disconnect",
