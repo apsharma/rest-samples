@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "0ba8b740-71b2-45d8-88c9-5b021fdb90e3",
+		"name": "Tenant_Expand_Static_Pool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+						"exec": [
+							"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+							"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"system",
+						"authenticate",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Pools",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"bat-vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pools",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"pool",
+						"manager",
+						"pools"
+					]
+				},
+				"description": "This API returns all the existing pools in a Tenant. We capture pool Id for a pool with name **bat-vdi**. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Pool",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"for (var i=0; i<jsonData.length; i++) {",
+							"    if(jsonData[i].name===\"bat-vdi\") {",
+							"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}"
+					]
+				},
+				"description": "This API returns the pool details when fetching using the pool Id. We capture pool Id for a pool with name **bat-vdi**. This can be changed in the Tests section. \n\nThere are three pools that are standard and always present. These are: \n- Pool Name: Utility Servers ; Pool Id: 999,\n- Pool Name: Imported Desktops; Pool Id: 1000,\n- Pool Name: Pattern Desktops; Pool Id: 1001 and\n- Pool Name: Recycle Pool; Pool Id: 1002."
+			},
+			"response": []
+		},
+		{
+			"name": "Update_Pool",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{taAuthHeader}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-dt-csrf-header",
+						"value": "{{taCsrfHeader}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"1003\",\n    \"name\": \"bat-vdi\",\n    \"entitledUserCount\": null,\n    \"requestedSize\": 2,\n    \"sessionBased\": false,\n    \"domainName\": \"AUTO-TENANTD\",\n    \"patternType\": \"S\",\n    \"dateCreated\": 1566926473535,\n    \"vmOsLicenseType\": null,\n    \"poolOnline\": true,\n    \"vmRootName\": \"D-bat-vdi\",\n    \"actualSize\": 1,\n    \"poolModeMessage\": null,\n    \"preferredClientType\": \"HORIZON_CLIENT\",\n    \"customerId\": null,\n    \"internal\": false,\n    \"encrypted\": false,\n    \"nsxNetwork\": null,\n    \"hotplugEnabled\": false,\n    \"lastUpdated\": 1566926473535,\n    \"supportedPoolProtocols\": [\n        \"PCOIP\",\n        \"BLAST\"\n    ],\n    \"minimumAvailable\": null,\n    \"highlyAvailable\": false,\n    \"poolSizeType\": \"Fixed\",\n    \"defaultPoolProtocol\": \"PCOIP\",\n    \"usedByDataCenterIds\": [\n        \"48a656c0-13d4-447d-8e03-e639bc754528\"\n    ],\n    \"poolSessionType\": \"desktop\",\n    \"DtFarmPowerManagementSchedule\": [],\n    \"DtDesktopSize\": null,\n    \"DtDesktopModel\": {\n        \"id\": \"75f538f1-9e36-4a89-ad49-c022bee4b99f\",\n        \"dateCreated\": null,\n        \"refId\": null,\n        \"sessionBased\": false,\n        \"gpuFrameBuffer\": \"\",\n        \"lastUpdated\": null,\n        \"currentDesktopCount\": null,\n        \"desktopMemoryInMBs\": 2048,\n        \"numberOfCpus\": 1,\n        \"diskSpaceInGBs\": 30,\n        \"desktopQuota\": null,\n        \"enabled\": true,\n        \"name\": \"Small\",\n        \"type\": null,\n        \"displayName\": null,\n        \"DtLicenseEntitlement\": []\n    },\n    \"DtGoldPattern\": {\n        \"id\": \"G.1001.4\",\n        \"md5sum\": null,\n        \"inventoryPath\": null,\n        \"vmOsLicenseType\": null,\n        \"notes\": null,\n        \"hostManagerId\": null,\n        \"osType\": \"Windows7_64\",\n        \"companyName\": \"vmw\",\n        \"timeZoneId\": \"EST\",\n        \"parentId\": null,\n        \"modified\": false,\n        \"rdshroleEnabled\": false,\n        \"ngvc\": false,\n        \"vmUuid\": \"423a157c-1718-8be0-1ea1-a1eb4112c9a8\",\n        \"enabled\": true,\n        \"version\": 1004,\n        \"key\": \"\",\n        \"domain\": null,\n        \"username\": \"administrator\",\n        \"dateCreated\": 1566926305898,\n        \"desktopManagerName\": \"100133B9A472BF\",\n        \"deleted\": false,\n        \"diskSize\": 0,\n        \"lastUpdated\": 1566935816266,\n        \"basedOn\": null,\n        \"name\": \"bat-W7-Ent-64b-GP\"\n    },\n    \"DtOrganization\": {\n        \"id\": \"1001\",\n        \"dateCreated\": 1566925049442,\n        \"dateUpdated\": 1566925049442,\n        \"superTenant\": false,\n        \"notificationContacts\": [],\n        \"disabled\": false,\n        \"psqlPassword\": \"\",\n        \"brandedCSSURL\": null,\n        \"licenseFileURL\": null,\n        \"supportURL\": null,\n        \"helpDesk\": null,\n        \"support\": null,\n        \"diskQuota\": null,\n        \"vmQuota\": null,\n        \"crmURL\": null,\n        \"businessUrl\": null,\n        \"caCertificate\": \"\",\n        \"sslCertificate\": \"\",\n        \"sslCertificateKey\": \"\",\n        \"userWritableVolumeEnabled\": false,\n        \"adminContact\": null,\n        \"technicalContact\": null,\n        \"name\": \"DEVELOP-NEWINSTALL\",\n        \"DtMapList\": {\n            \"customField5\": null,\n            \"customField6\": null,\n            \"customField1\": null,\n            \"customField2\": null,\n            \"customField3\": null,\n            \"customField4\": null\n        }\n    },\n    \"DtResourceTag\": [],\n    \"DtFarmRepristineSchedule\": null,\n    \"DtPoolPolicy\": {\n        \"id\": \"456225315\",\n        \"assignedGroupNames\": [],\n        \"allowFullDesktop\": true,\n        \"assignedNetworks\": [],\n        \"firstServerEmptyDuration\": 30,\n        \"clipBoardRedirect\": false,\n        \"comPortRedirect\": false,\n        \"drivesRedirect\": false,\n        \"printerRedirect\": false,\n        \"smartCardRedirect\": false,\n        \"runOnceScript\": null,\n        \"nonPersistent\": false,\n        \"defaultPowerState\": \"POWERON\",\n        \"disconnectLimitMinutes\": 0,\n        \"minServers\": 0,\n        \"maxServers\": 0,\n        \"repristineSessionLimit\": 1000,\n        \"maxSessionLifetimeMinutes\": 10080,\n        \"occupancyPresetMode\": \"OPTIMIZE_DISABLED\",\n        \"repristineAction\": \"POWEROFF\",\n        \"repristineType\": \"SESSION_COUNT\",\n        \"allowedToJoinDomain\": true,\n        \"organizationalUnit\": null,\n        \"licenseKey\": null,\n        \"registeredTo\": null,\n        \"video3DEnabled\": false,\n        \"allocatorSessionTimeOut\": 3600000,\n        \"maxPoweredOnVMs\": null,\n        \"minPoweredOnVMs\": null,\n        \"numDesktopInQuiescingState\": 1,\n        \"timezone\": null,\n        \"AssignedGroups\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/update",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"infrastructure",
+						"pool",
+						"desktop",
+						"{{taDesktopPoolId}}",
+						"update"
+					]
+				},
+				"description": "This request shows how to edit a Desktop Pool. The request body describes the final state of the pool. The initial state of the pool can be retrived using the previous API request (Get_Pool) in the collection. It is important to specify all pool attributes mentioned here. For e.g. - Pool Provisioning is likely fail or produce unexpected results, in the absence of DtDesktopModel, DtGoldPattern, DtPoolPolicy, etc."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6e88f21b-93ac-45fe-ad5e-942e0466c707",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "aa642baa-3d22-4094-b59f-ee50297474ca",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
