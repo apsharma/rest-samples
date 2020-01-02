@@ -6,6 +6,50 @@
 	},
 	"item": [
 		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83862f39-55c3-499e-84a1-5b1c950a4461",
+						"exec": [
+							"postman.setEnvironmentVariable(\"taAuthHeader\", postman.getResponseHeader(\"Authorization\"));",
+							"postman.setEnvironmentVariable(\"taCsrfHeader\", postman.getResponseHeader(\"x-dt-csrf-header\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\":\"CREDENTIALS\",\n  \"username\":\"{{taUser}}\",\n  \"password\":\"{{taPwd}}\",\n  \"domain\":\"{{taDomain}}\",\n  \"usernameModifiable\":false\n}"
+				},
+				"url": {
+					"raw": "https://{{taAddress}}/dt-rest/v100/system/authenticate/credentials",
+					"protocol": "https",
+					"host": [
+						"{{taAddress}}"
+					],
+					"path": [
+						"dt-rest",
+						"v100",
+						"system",
+						"authenticate",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get_Timeout_Settings",
 			"request": {
 				"method": "GET",
@@ -19,10 +63,6 @@
 						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "https://{{taAddress}}/dt-rest/v100/setting/manager/getclienttimeoutconfig",
 					"protocol": "https",
@@ -41,53 +81,7 @@
 			"response": []
 		},
 		{
-			"name": "Get_Certificate",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/x-x509-ca-cert"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json, text/plain, */*"
-					},
-					{
-						"key": "Content-Disposition",
-						"value": "attachment; filename=\"cacert.pem\""
-					},
-					{
-						"key": "Accept-Encoding",
-						"value": "gzip, deflate, sdch"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/system/certificate",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"system",
-						"certificate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get_Available_Agents",
+			"name": "Get_Service_Capacity_Usage",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -100,118 +94,34 @@
 						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/pool/manager/pool/1004/availableagentdetails?agentName=DaaS-Agent&agentVersion=19.1.0",
+					"raw": "https://{{taAddress}}/dt-rest/v100/quota/manager/getservicecapacityusage?dcId={{dataCenterId}}&desktopManagerId={{tenantDesktopManager}}&toBeAggregated=true",
 					"protocol": "https",
 					"host": [
 						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"pool",
-						"manager",
-						"pool",
-						"1004",
-						"availableagentdetails"
-					],
-					"query": [
-						{
-							"key": "agentName",
-							"value": "DaaS-Agent"
-						},
-						{
-							"key": "agentVersion",
-							"value": "19.1.0"
-						}
-					]
-				},
-				"description": "I am not whether this API is still relevant."
-			},
-			"response": []
-		},
-		{
-			"name": "Tenant_protocol_Quota",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Basic 5a14a423-a5ea-4c0a-8bdd-32ff4702a290"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://{{IP}}/dt-rest/v100/quota/manager/tenant/protocol/quota",
-					"protocol": "https",
-					"host": [
-						"{{IP}}"
 					],
 					"path": [
 						"dt-rest",
 						"v100",
 						"quota",
 						"manager",
-						"tenant",
-						"protocol",
-						"quota"
+						"getservicecapacityusage"
+					],
+					"query": [
+						{
+							"key": "dcId",
+							"value": "{{dataCenterId}}"
+						},
+						{
+							"key": "desktopManagerId",
+							"value": "{{tenantDesktopManager}}"
+						},
+						{
+							"key": "toBeAggregated",
+							"value": "true"
+						}
 					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get_Reservation",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{taAuthHeader}}"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "x-dt-csrf-header",
-						"value": "{{taCsrfHeader}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"endDate\": 1541099635000,\n  \"beginDate\": 1438905600000\n}"
-				},
-				"url": {
-					"raw": "https://{{taAddress}}/dt-rest/v100/reservation/manager/reservations",
-					"protocol": "https",
-					"host": [
-						"{{taAddress}}"
-					],
-					"path": [
-						"dt-rest",
-						"v100",
-						"reservation",
-						"manager",
-						"reservations"
-					]
-				},
-				"description": "NOT REALLY  USED"
 			},
 			"response": []
 		}

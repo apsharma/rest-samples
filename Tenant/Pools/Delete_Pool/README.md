@@ -1,1 +1,0 @@
-This file will detail the various steps involved with creating a Deleting Desktop Pool.

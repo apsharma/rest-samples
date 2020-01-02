@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "6f1b4f00-fb1b-4dab-ae62-cd0b0bf22585",
+		"name": "Tenant_Delete_Pool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete_Static_Pool",
+			"item": [
+				{
+					"name": "Delete_Pattern",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1541549b-8ad9-4318-a3da-9b973c888de4",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"for (var i=0; i<jsonData.length; i++) {",
+									"    if(jsonData[i].name===\"vdi\") {",
+									"        postman.setEnvironmentVariable(\"taDesktopPoolId\", jsonData[i].id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{taAuthHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "x-dt-csrf-header",
+								"value": "{{taCsrfHeader}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pattern/static/{{patternId}}/delete",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"pattern",
+								"static",
+								"{{patternId}}",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Pool",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{taAuthHeader}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "x-dt-csrf-header",
+								"value": "{{taCsrfHeader}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{taAddress}}/dt-rest/v100/infrastructure/pool/desktop/{{taDesktopPoolId}}/delete",
+							"protocol": "https",
+							"host": [
+								"{{taAddress}}"
+							],
+							"path": [
+								"dt-rest",
+								"v100",
+								"infrastructure",
+								"pool",
+								"desktop",
+								"{{taDesktopPoolId}}",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3d760ca4-bb05-4159-bd4d-720ded6f6708",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "82a80777-779d-4074-b30b-b221bc61b708",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	]
+}
